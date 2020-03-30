@@ -43,12 +43,13 @@ if(isset($_GET['key'])){
             return;
         case 'approve-comming':
             http_response_code(200);
-            echo json_encode($repository->ApproveComming($guestId));
+            $data = json_decode(file_get_contents("php://input"));
+            echo json_encode($repository->ApproveComming($guestId, $data->approved));
             return;
         case 'save-answer':
             http_response_code(200);
             $data = json_decode(file_get_contents("php://input"));
-            echo json_encode($repository->SaveAnswer($data));
+            echo json_encode($repository->SaveAnswer($guestId, $data));
             return;
         default: 
             if(!$isAdmin){
@@ -62,16 +63,24 @@ if(isset($_GET['key'])){
         switch($_GET['key']){
     
             // admin
-    
+            case 'get-guest-info-by-id':
+                http_response_code(200);
+                echo json_encode($repository->GetGuestInfo($_GET['guestId']));
+                return;
             case 'create-guest':
                 http_response_code(200);
                 $data = json_decode(file_get_contents("php://input"));
                 echo json_encode($repository->CreateGuest($data));
                 return;
+            case 'update-guest':
+                http_response_code(200);
+                $data = json_decode(file_get_contents("php://input"));
+                echo json_encode($repository->UpdateGuest($data));
+                return;
             case 'generate-link':
                 http_response_code(200);
                 $data = json_decode(file_get_contents("php://input"));
-                echo json_encode($repository->GenerateLink($data->guestId));
+                echo json_encode($repository->GenerateLink($data));
                 return;
             case 'add-to-link':
                 http_response_code(200);

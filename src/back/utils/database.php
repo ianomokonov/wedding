@@ -29,7 +29,6 @@
         
         public function genUpdateQuery($keys, $values, $t, $id){
             $res = array('UPDATE '.$t.' SET ',array());
-            $q = '';
             for ($i = 0; $i < count($keys); $i++) {
                 if($values[$i]!='now()'){
                     $res[0] = $res[0].$keys[$i].'=?, ';

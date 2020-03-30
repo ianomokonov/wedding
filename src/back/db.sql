@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS guest(
     transfer bit,
     food varchar(255),
     alcohole varchar(255),
+    hasChild bit,
+    approved bit,
 
     FOREIGN KEY (linkId) REFERENCES link(id)
     

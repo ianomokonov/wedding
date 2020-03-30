@@ -36,7 +36,7 @@
                 catch (Exception $e){
                 
                     // код ответа 
-                    http_response_code(401);
+                    // http_response_code(401);
                 
                     // сообщить пользователю отказано в доступе и показать сообщение об ошибке 
                     return array(
@@ -50,7 +50,7 @@
             else{
             
                 // код ответа 
-                http_response_code(401);
+                // http_response_code(401);
             
                 // сообщить пользователю что доступ запрещен 
                 echo json_encode(array("message" => "Доступ запрещён."));
@@ -78,7 +78,7 @@
             catch (Exception $e){
             
                 // код ответа 
-                http_response_code(401);
+                // http_response_code(401);
             
                 // сообщить пользователю отказано в доступе и показать сообщение об ошибке 
                 return json_encode(array(

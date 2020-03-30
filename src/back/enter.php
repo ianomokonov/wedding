@@ -6,9 +6,9 @@ header("Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Autho
 
 include_once './utils/token.php';
 
-$data = json_decode(file_get_contents("php://input"));
+$data = (object) json_decode(file_get_contents("php://input"));
 if(!isset($data->login) || !isset($data->password)){
-    http_response_code(500);
+    // // http_response_code(403);
     echo json_encode(array("message" => "Заполните логин и пароль"));
     return;
 }
@@ -22,7 +22,7 @@ if($data->login==$login && $data->password==$passw){
     echo json_encode($token->encode(array('isAdmin' => true)));
     return;
 }else{  
-    http_response_code(500);
+    // http_response_code(500);
     echo json_encode(array("message" => "Неверный логин или пароль"));
     return;
 }

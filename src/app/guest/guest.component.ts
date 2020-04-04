@@ -24,6 +24,12 @@ export class GuestComponent {
     })
   }
 
+  public onApproveClick(){
+    this.api.ApproveComming(!this.guest.approved).subscribe(() => {
+      this.guest.approved = !this.guest.approved;
+    });
+  }
+
   private getGuestInfo(){
     this.api.getGuestInfo().subscribe(guest => {
       this.guest = guest;

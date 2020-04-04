@@ -19,7 +19,7 @@ import { EnterComponent } from './admin/enter/enter.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { RouterModule } from '@angular/router';
-import { AdminGuard } from './admin.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 
 @NgModule({

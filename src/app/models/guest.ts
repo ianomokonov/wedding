@@ -7,13 +7,13 @@ export interface Guest{
     name:string;
     surname:string;
     secondname?:string;
-    transfer: boolean;
+    transfer?: boolean;
     linkId?:number;
-    alcohole: string;
-    food: string;
-    approved: boolean;
+    alcohole?: string;
+    food?: string;
+    approved?: boolean;
 
-    link: Link;
-    children: Child[];
-    neighbours: Neighbour[];
+    link?: Link;
+    children?: Child[];
+    neighbours?: Neighbour[];
 }

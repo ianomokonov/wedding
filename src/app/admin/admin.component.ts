@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApprovedModalComponent } from '../guest/approved-modal/approved-modal.component';
+import { AddGuestComponent } from './add-guest/add-guest.component';
 
 @Component({
   selector: 'app-admin',
@@ -8,9 +11,12 @@ import { ApiService } from '../services/api.service';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private api: ApiService) { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
 
+  public addGuest(){
+    this.modalService.open(AddGuestComponent, { centered: true, size: 'lg' })
+  }
 }

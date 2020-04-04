@@ -1,0 +1,44 @@
+<ngb-accordion #acc="ngbAccordion">
+    <ngb-panel *ngFor="let guest of guestsList;" title="#{{guest.id}}: {{guest.surname}} {{guest.name}}">
+        <ng-template ngbPanelContent>
+            <div>
+                Фамилия: {{guest.surname}}
+            </div>
+            <div>
+                Имя: {{guest.name}}
+            </div>
+            <div *ngIf="guest.secondName">
+                Отчество: {{guest.secondName}}
+            </div>
+            <div *ngIf="guest.transfer">
+                Нужен трансфер
+            </div>
+            <div *ngIf="guest.linkId">
+                Уникальная ссылка гостя: <a href="guest.link.url">{{guest.link.url}}</a>
+            </div>
+            <div *ngIf="guest.alcohole">
+                Предпочтения по алкоголю: {{guest.alcohole}}
+            </div>
+            <div *ngIf="guest.food">
+                Предпочтения по еде: {{guest.food}}
+            </div>
+            <div *ngIf="guest.approved">
+                Приглашение принято: {{guest.approved}}
+            </div>
+            <button type="button" class="btn btn-primary" (click)="editGuest(guest.id)">Редактировать</button>
+        </ng-template>
+    </ngb-panel>
+    <!-- <ngb-panel>
+    <ng-template ngbPanelTitle>
+    <span>&#9733; <b>Fancy</b> title &#9733;</span>
+    </ng-template>
+    <ng-template ngbPanelContent>
+    222
+    </ng-template>
+</ngb-panel>
+<ngb-panel title="Disabled" [disabled]="true">
+    <ng-template ngbPanelContent>
+    333
+    </ng-template>
+</ngb-panel> -->
+</ngb-accordion>

@@ -1,26 +1,7 @@
 <div class="container">
-    <div class="d-flex justify-content-center">
-        <form class="addForm">
-            <div class="form-group">
-                <label for="staticLink">Ссылка</label>
-                    <input type="text" readonly class="form-control-plaintext" id="staticLink" value="@@@">
-            </div>
-            <div class="form-group">
-                <label for="surname">Фамилия</label>
-                <input type="text" class="form-control" id="surname" placeholder="*обязательно">
-            </div>
-            <div class="form-group">
-                <label for="name">Имя</label>
-                <input type="text" class="form-control" id="name" placeholder="*обязательно">
-            </div>
-            <div class="form-group">
-                <label for="secondName">Отчество</label>
-                <input type="text" class="form-control" id="secondName" placeholder="(при наличии)">
-            </div>
-            <div class="d-flex justify-content-around">
-                <button type="button" class="btn btn-primary">Добавить гостя</button>
-            </div>
-        </form>
+    <div class="d-flex">
+        <div class="p-2 flex-grow-1">Список гостей</div>
+        <div class="p-2" style="cursor: pointer;" (click)="addGuest()"><i class="fas fa-plus-square"></i></div>
     </div>
     <guests-list></guests-list>
 </div>

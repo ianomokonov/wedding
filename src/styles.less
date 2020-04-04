@@ -6,6 +6,44 @@ html {
     height: 100%;
 }
 
+body {
+    &::-webkit-scrollbar-button {
+        // background-image : url('');
+        background-repeat: no-repeat;
+        width            : 0px;
+        height           : 0px;
+        border: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+        border: 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 0px;
+        border-radius        : 0px;
+        background-color     : transparent;
+        border: 0;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: transparent;
+    }
+
+    &::-webkit-resizer {
+        // background-image : url('');
+        background-repeat: no-repeat;
+        width            : 0px;
+        height           : 0px
+    }
+
+    &::-webkit-scrollbar {
+        width: 0px;
+        border: 0;
+    }
+}
+
 @font-face {
     font-family: SharonAP;
     /* Гарнитура шрифта */
@@ -41,24 +79,25 @@ html {
 }
 
 .modal-content {
-    border-radius: 0;
-    border: 3px solid #D5A83B;
+    border-radius   : 0;
+    border          : 3px solid #D5A83B;
     background-color: #fff;
-    animation: show-modal 0.5s ease-in-out forwards;
+    animation       : show-modal 0.5s ease-in-out forwards;
 }
 
 .modal-backdrop {
     background-color: rgba(255, 255, 255, 0.233);
-    opacity: 1 !important;
+    opacity         : 1 !important;
     backdrop-filter : blur(2px);
-    animation: show-modal 0.5s ease-in-out forwards;
+    animation       : show-modal 0.5s ease-in-out forwards;
 }
 
-@keyframes show-modal{
-    from{
+@keyframes show-modal {
+    from {
         opacity: 0;
     }
-    to{
+
+    to {
         opacity: 1;
     }
 }

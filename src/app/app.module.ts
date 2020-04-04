@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { AuthService } from './services/auth.service';
 import { RouterModule } from '@angular/router';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestsTableComponent } from './guests-table/guests-table.component';
+import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { GuestsTableComponent } from './guests-table/guests-table.component';
     PageNotFoundComponent,
     AdminComponent,
     EnterComponent,
-    GuestsTableComponent
+    GuestsTableComponent,
+    ApprovedModalComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { GuestsTableComponent } from './guests-table/guests-table.component';
     AuthService,
     AdminGuard
   ],
+  entryComponents: [ApprovedModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

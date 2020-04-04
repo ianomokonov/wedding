@@ -6,7 +6,7 @@ export interface Guest{
     id?:number;
     name:string;
     surname:string;
-    secondname?:string;
+    secondName?:string;
     transfer?: boolean;
     linkId?:number;
     alcohole?: string;

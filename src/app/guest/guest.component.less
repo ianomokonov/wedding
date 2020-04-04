@@ -1,11 +1,23 @@
+@import "../../colors.less";
+
 .item {
+    @time   : 1s;
     height  : 100%;
     position: relative;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    &.header>.content {
+    h1 {
+        font-family: Antonella script;
+        /* identical to box height */
 
-        *{
+        text-align: center;
+    }
+
+    .content {
+        * {
             cursor: default;
         }
 
@@ -14,13 +26,15 @@
         align-items    : center;
         height         : 100%;
         flex-direction : column;
+    }
 
+    &.header>.content {
         h2 {
-            font-family: SharonAP;
-            font-style : normal;
-            font-weight: normal;
-            font-size  : 4vw;
-            line-height: 5vw;
+            font-family  : SharonAP;
+            font-style   : normal;
+            font-weight  : normal;
+            font-size    : 4vw;
+            line-height  : 5vw;
             margin-bottom: 0;
         }
 
@@ -38,19 +52,20 @@
         .center-content {
             display    : flex;
             align-items: center;
-            margin: 3vw 0;
+            margin     : 3vw 0;
 
-            
+
 
             .rounded-circle {
-                height         : 25vw;
-                width          : 25vw;
+                height         : 10vw;
+                width          : 10vw;
+                animation      : show-circle @time ease-out forwards;
                 display        : flex;
                 justify-content: center;
                 align-items    : center;
                 flex-direction : column;
 
-                background: #0F548D;
+                background: @blue;
                 box-shadow: 0px 9px 20px rgba(7, 43, 98, 0.4);
 
                 margin: 0 3vw;
@@ -75,41 +90,67 @@
         }
     }
 
+    .go-to-approve{
+        width: 100%;
+        height: 50px;
+        position: absolute;
+        bottom: 0;
+    }
+
     img {
         position: absolute;
 
+        &:not(.down-arrow) {
+            opacity: 0;
+        }
+
+
         &:nth-of-type(1),
         &:nth-of-type(2) {
-            width : 30vw;
+            width: 30vw;
         }
 
         &:nth-of-type(3),
         &:nth-of-type(4) {
-            width : 26vw;
+            width: 28vw;
         }
 
         &:nth-of-type(1) {
-            left     : -7vw;
-            top      : -3vw;
+
+            left     : -20vw;
+            top      : -15vw;
+            animation: show-flowers-1 @time ease-in-out forwards;
             transform: rotate(16.67deg);
         }
 
         &:nth-of-type(2) {
-            top      : -6vw;
-            right    : -5vw;
+
+            top      : -20vw;
+            right    : -15vw;
+            animation: show-flowers-2 @time ease-in-out forwards;
             transform: rotate(107.42deg);
         }
 
         &:nth-of-type(3) {
-            left     : 1.64px;
-            bottom   : -16vw;
+            left     : -15vw;
+            bottom   : -25vw;
+            animation: show-flowers-3 @time ease-in-out forwards;
             transform: rotate(123.67deg);
         }
 
         &:nth-of-type(4) {
-            right    : -1vw;
-            bottom   : -15vw;
+            right    : -15vw;
+            bottom   : -25vw;
+            animation: show-flowers-4 @time ease-in-out forwards;
             transform: rotate(59.42deg);
+        }
+
+
+        &.down-arrow{
+            width: 20px;
+            position: absolute;
+            bottom: 10px;
+            animation: show-down 1s ease-in-out infinite;
         }
     }
 
@@ -118,6 +159,141 @@
     }
 
     &:nth-of-type(2) {
-        background-color: #C72948;
+        background-color: @pink;
+
+        .content {
+            &>div {
+                display        : flex;
+                justify-content: center;
+                align-items    : center;
+                flex-direction : column;
+                width          : 600px;
+            }
+
+            h1 {
+                color: @lighter-pink;
+            }
+
+            p {
+                text-align : center;
+                font-family: SharonAP;
+                font-size  : 33px;
+                line-height: 2.3rem;
+                font-weight: 500;
+                color      : rgb(52, 73, 100);
+
+                text-align    : center;
+                letter-spacing: 0.04em;
+
+                b {
+                    color: @blue;
+                }
+            }
+
+            .btn {
+                margin-top      : 30px;
+                border-color    : @blue;
+                background-color: white;
+
+                cursor: pointer;
+
+                &:hover {
+                    background-color: @pink;
+                    color           : white;
+                    border-color    : @pink;
+                }
+
+                &.approved {
+                    &:hover {
+                        background-color: @blue;
+                        border-color    : @blue;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+
+@keyframes show-flowers-1 {
+    from {
+        left   : -20vw;
+        top    : -15vw;
+        opacity: 0;
+    }
+
+    to {
+        left   : -7vw;
+        top    : -3vw;
+        opacity: 1;
+    }
+}
+
+@keyframes show-flowers-2 {
+    from {
+        right  : -20vw;
+        top    : -15vw;
+        opacity: 0;
+    }
+
+    to {
+        top    : -6vw;
+        right  : -5vw;
+        opacity: 1;
+    }
+}
+
+@keyframes show-flowers-3 {
+    from {
+        left   : -15vw;
+        bottom : -25vw;
+        opacity: 0;
+    }
+
+    to {
+        left   : -1vw;
+        bottom : -16vw;
+        opacity: 1;
+    }
+}
+
+@keyframes show-flowers-4 {
+    from {
+        right  : -15vw;
+        bottom : -25vw;
+        opacity: 0;
+    }
+
+    to {
+        right  : -1vw;
+        bottom : -15vw;
+        opacity: 1;
+    }
+}
+
+@keyframes show-circle {
+    from {
+        height: 10vw;
+        width : 10vw;
+    }
+
+    to {
+        height: 25vw;
+        width : 25vw;
+    }
+}
+
+@keyframes show-down {
+    0% {
+        bottom: 10px;
+    }
+
+    50% {
+        bottom: 20px;
+    }
+
+    100% {
+        bottom: 10px;
     }
 }

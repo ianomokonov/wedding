@@ -1,10 +1,10 @@
 
-<div class="d-flex align-items-center justify-content-center h-100">
+<div class="d-flex align-items-center justify-content-center h-100" *ngIf="show">
     <div class="card border-info w-50">
         <div class="card-header text-white bg-info">
             Вход админа
         </div>
-        <div class="card-body" [formGroup]="enterForm">
+        <form class="card-body" [formGroup]="enterForm" (submit)="onEnterClick()">
             <div class="form-group">
                 <label for="login">Логин</label>
                 <input id="login" class="form-control" formControlName="login">
@@ -13,8 +13,8 @@
                 <label for="password">Пароль</label>
                 <input id="password" type="password" class="form-control" formControlName="password">
             </div>
-            <button class="btn btn-info" (click)="onEnterClick()">Войти</button>
+            <button type="submit" class="btn btn-info">Войти</button>
             <button class="btn btn-link" (click)="onBackClick()">Назад</button>
-        </div>
+        </form>
     </div>
 </div>

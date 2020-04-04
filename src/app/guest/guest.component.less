@@ -1,0 +1,123 @@
+.item {
+    height  : 100%;
+    position: relative;
+    overflow: hidden;
+
+    &.header>.content {
+
+        *{
+            cursor: default;
+        }
+
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        height         : 100%;
+        flex-direction : column;
+
+        h2 {
+            font-family: SharonAP;
+            font-style : normal;
+            font-weight: normal;
+            font-size  : 4vw;
+            line-height: 5vw;
+            margin-bottom: 0;
+        }
+
+        h1 {
+            font-family: Antonella script;
+            font-style : normal;
+            font-weight: normal;
+            font-size  : 5vw;
+            line-height: 5vw;
+            /* identical to box height */
+
+            text-align: center;
+        }
+
+        .center-content {
+            display    : flex;
+            align-items: center;
+            margin: 3vw 0;
+
+            
+
+            .rounded-circle {
+                height         : 25vw;
+                width          : 25vw;
+                display        : flex;
+                justify-content: center;
+                align-items    : center;
+                flex-direction : column;
+
+                background: #0F548D;
+                box-shadow: 0px 9px 20px rgba(7, 43, 98, 0.4);
+
+                margin: 0 3vw;
+
+                h1 {
+                    margin-bottom: 0;
+                    font-family  : Ekaterina Velikaya Two;
+                    font-style   : normal;
+                    font-weight  : normal;
+                    font-size    : 5vw;
+                    line-height  : 4vw;
+                    text-align   : center;
+                    /* белый */
+
+                    color: #FFFFFF;
+
+                    &:nth-of-type(3) {
+                        margin-top: 3vw;
+                    }
+                }
+            }
+        }
+    }
+
+    img {
+        position: absolute;
+
+        &:nth-of-type(1),
+        &:nth-of-type(2) {
+            width : 30vw;
+        }
+
+        &:nth-of-type(3),
+        &:nth-of-type(4) {
+            width : 26vw;
+        }
+
+        &:nth-of-type(1) {
+            left     : -7vw;
+            top      : -3vw;
+            transform: rotate(16.67deg);
+        }
+
+        &:nth-of-type(2) {
+            top      : -6vw;
+            right    : -5vw;
+            transform: rotate(107.42deg);
+        }
+
+        &:nth-of-type(3) {
+            left     : 1.64px;
+            bottom   : -16vw;
+            transform: rotate(123.67deg);
+        }
+
+        &:nth-of-type(4) {
+            right    : -1vw;
+            bottom   : -15vw;
+            transform: rotate(59.42deg);
+        }
+    }
+
+    &:nth-of-type(1) {
+        background-color: #fff;
+    }
+
+    &:nth-of-type(2) {
+        background-color: #C72948;
+    }
+}

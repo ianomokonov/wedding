@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,8 @@ import { AdminComponent } from './admin/admin.component';
 import { EnterComponent } from './admin/enter/enter.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
+import { RouterModule } from '@angular/router';
+import { AdminGuard } from './guards/admin.guard';
 
 
 @NgModule({
@@ -29,17 +32,20 @@ import { AuthService } from './services/auth.service';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     FormBuilder,
     HttpClient,
     ApiService,
-    AuthService
+    AuthService,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

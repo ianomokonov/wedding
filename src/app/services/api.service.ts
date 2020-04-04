@@ -11,10 +11,15 @@ import { UpdateLinkRequest } from '../models/requests/UpdateLinkRequest';
 @Injectable()
 export class ApiService{
     
-    private baseUrl:string=`http://localhost/wedding/controller.php?`;
-    private baseEnterUrl:string=`http://localhost/wedding/enter.php`;
+    private baseUrl:string=`http://wedding.progoff.ru/wedding/controller.php?`;
+    private baseEnterUrl:string=`http://wedding.progoff.ru/wedding/enter.php`;
     constructor(private http: HttpClient){
 
+    }
+
+    /** Проверка доступа админа */
+    public checkAccess(): Observable<boolean>{
+        return this.http.get<boolean>(`${this.baseUrl}key=get-access`);
     }
 
     //Гость

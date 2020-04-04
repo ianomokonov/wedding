@@ -7,8 +7,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const routes: Routes = [
   ...adminRoutes,
-  {path:'guest/:token', component: GuestComponent},
-  {path:'**', component: PageNotFoundComponent},
+  { path: 'guest/:token', component: GuestComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

@@ -100,7 +100,7 @@
             }
 
             $token = $this->token->encode(array('guestId' => $link->guestId));
-            $url = $this->baseUrl.'enter/'.$token;
+            $url = $this->baseUrl.'guest/'.$token;
             $link->url = $url;
             $guestId = $link->guestId;
             unset( $link->guestId );

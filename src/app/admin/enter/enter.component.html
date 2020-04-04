@@ -1,1 +1,20 @@
-<button class="btn btn-primary" (click)="onEnterClick()">Войти</button>
+
+<div class="d-flex align-items-center justify-content-center h-100">
+    <div class="card border-info w-50">
+        <div class="card-header text-white bg-info">
+            Вход админа
+        </div>
+        <div class="card-body" [formGroup]="enterForm">
+            <div class="form-group">
+                <label for="login">Логин</label>
+                <input id="login" class="form-control" formControlName="login">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input id="password" type="password" class="form-control" formControlName="password">
+            </div>
+            <button class="btn btn-info" (click)="onEnterClick()">Войти</button>
+            <button class="btn btn-link" (click)="onBackClick()">Назад</button>
+        </div>
+    </div>
+</div>

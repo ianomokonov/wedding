@@ -1,1 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
+@import './colors.less';
+
+body,
+html {
+    height: 100%;
+}
+
+@font-face {
+    font-family: SharonAP;
+    /* Гарнитура шрифта */
+    src: url(./assets/fonts/SharonAP.ttf);
+    /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Ekaterina Velikaya Two;
+    /* Гарнитура шрифта */
+    src: url(./assets/fonts/EkaterinaVelikayaTwo.ttf);
+    /* Путь к файлу со шрифтом */
+}
+
+@font-face {
+    font-family: Antonella script;
+    /* Гарнитура шрифта */
+    src: url(./assets/fonts/ofont_ru_Antonella_script.ttf);
+    /* Путь к файлу со шрифтом */
+}
+
+
+.form-control {
+    &:focus {
+        box-shadow: none;
+    }
+
+    &.ng-touched.ng-invalid {
+        border: 1px solid @danger;
+    }
+
+}

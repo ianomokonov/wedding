@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class EnterComponent implements OnInit {
   public enterForm: FormGroup;
+  public show: boolean = false;
   constructor(private api: ApiService, private auth: AuthService, private router: Router, private fb: FormBuilder) {
     this.enterForm = this.fb.group({
       login: [null, [Validators.required]],
@@ -19,7 +20,15 @@ export class EnterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    sessionStorage.removeItem('weddingUserToken');
+    this.api.checkAccess().subscribe(isAdmin => {
+      if(isAdmin){
+        this.router.navigate(['/admin']);
+        return;
+      }
+      this.show = true;
+      sessionStorage.removeItem('weddingUserToken');
+    })
+    
   }
 
   public onEnterClick(): void {
@@ -29,6 +38,7 @@ export class EnterComponent implements OnInit {
           value.markAsTouched();
         }
       }
+      return;
     }
     const { login, password } = this.enterForm.getRawValue();
     this.api.enter(login, password).subscribe(token => {

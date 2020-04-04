@@ -11,9 +11,6 @@ export class AdminComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.api.GenerateLink({guestId: 1, header: 'Првиет, Иван'}).subscribe(user => {
-      console.log(user)
-    })
   }
 
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { RouterModule } from '@angular/router';
 import { AdminGuard } from './guards/admin.guard';
+import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AdminGuard } from './guards/admin.guard';
     GuestComponent,
     PageNotFoundComponent,
     AdminComponent,
-    EnterComponent
+    EnterComponent,
+    ApprovedModalComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +49,7 @@ import { AdminGuard } from './guards/admin.guard';
     AuthService,
     AdminGuard
   ],
+  entryComponents: [ApprovedModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

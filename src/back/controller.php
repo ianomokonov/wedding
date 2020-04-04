@@ -8,7 +8,7 @@ include_once 'repository.php';
 include_once './utils/token.php';
 
 if(!isset($_GET['token'])){
-    // http_response_code(401);
+    http_response_code(401);
     echo json_encode(array("message" => "В доступе отказано"));
     return;
 }
@@ -64,11 +64,15 @@ if(isset($_GET['key'])){
     
     if($isAdmin){
         switch($_GET['key']){
-    
+            
             // admin
             case 'get-guest-info-by-id':
                 // http_response_code(200);
                 echo json_encode($repository->GetGuestInfo($_GET['guestId']));
+                return;
+            case 'get-guests':
+                // http_response_code(200);
+                echo json_encode($repository->GetGuests());
                 return;
             case 'create-guest':
                 // http_response_code(200);
@@ -104,20 +108,20 @@ if(isset($_GET['key'])){
                 echo json_encode($repository->GetQuestioningResults());
                 return;
             default: 
-                // http_response_code(500);
+                http_response_code(500);
                 echo json_encode(array("message" => "Ключ запроса не найден"));
                 return;
             
         }
     }
 
-    // http_response_code(401);
+    http_response_code(401);
     echo json_encode(array("message" => "В доступе отказано"));
     return;
 
 
 } else {
-    // http_response_code(500);
+    http_response_code(500);
     echo json_encode(array("message" => "Отсутствует ключ запроса."));
 }
 ?>

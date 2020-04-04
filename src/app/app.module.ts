@@ -20,7 +20,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { RouterModule } from '@angular/router';
 import { AdminGuard } from './guards/admin.guard';
-import { GuestsTableComponent } from './guests-table/guests-table.component';
+import { GuestsListComponent } from './admin/guests-table/guests-list.component';
 import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.component';
 
 
@@ -31,7 +31,7 @@ import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.co
     PageNotFoundComponent,
     AdminComponent,
     EnterComponent,
-    GuestsTableComponent,
+    GuestsListComponent,
     ApprovedModalComponent
   ],
   imports: [

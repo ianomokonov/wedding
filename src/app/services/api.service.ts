@@ -41,8 +41,13 @@ export class ApiService{
 
     //Админ
 
-    public enter(login: string, password: string){
+    public enter(login: string, password: string): Observable<string>{
         return this.http.post<string>(`${this.baseEnterUrl}`, {login, password});
+    }
+
+    /** получение списка гостей */
+    public getGuests(): Observable<Guest[]>{
+        return this.http.get<Guest[]>(`${this.baseUrl}key=get-guests`);
     }
 
     /** Получение информации гостя по id 

@@ -20,6 +20,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { RouterModule } from '@angular/router';
 import { AdminGuard } from './guards/admin.guard';
+import { GuestsTableComponent } from './guests-table/guests-table.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AdminGuard } from './guards/admin.guard';
     GuestComponent,
     PageNotFoundComponent,
     AdminComponent,
-    EnterComponent
+    EnterComponent,
+    GuestsTableComponent
   ],
   imports: [
     BrowserModule,

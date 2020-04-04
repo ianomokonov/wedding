@@ -74,7 +74,7 @@ export class ApiService{
         return this.http.post<Message>(`${this.baseUrl}key=add-to-link`, link);
     }
 
-    /** Добавление гостя в ссылку */
+    /** Удаление гостя из ссылки */
     public RemoveFromLink(link: UpdateLinkRequest): Observable<Message>{
         return this.http.post<Message>(`${this.baseUrl}key=remove-from-link`, link);
     }

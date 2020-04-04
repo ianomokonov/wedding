@@ -1,1 +1,26 @@
-<p>admin works!</p>
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <form class="addForm">
+            <div class="form-group" *ngIf="uniqueLink">
+                <label for="staticLink">Ссылка</label>
+                    <input type="text" readonly class="form-control-plaintext" id="staticLink" value="@@@">
+            </div>
+            <div class="form-group">
+                <label for="surname">Фамилия</label>
+                <input type="text" class="form-control" id="surname" placeholder="*обязательно">
+            </div>
+            <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" class="form-control" id="name" placeholder="*обязательно">
+            </div>
+            <div class="form-group">
+                <label for="secondName">Отчество</label>
+                <input type="text" class="form-control" id="secondName" placeholder="(при наличии)">
+            </div>
+            <div class="d-flex justify-content-around">
+                <button type="button" class="btn btn-primary">Добавить гостя</button>
+            </div>
+        </form>
+    </div>
+    <guests-table></guests-table>
+</div>

@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "wedding"
+    }
+  },
+  "defaultProject": "wedding",
+  "cli": {
+    "analytics": false
+  }
 }

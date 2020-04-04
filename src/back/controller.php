@@ -9,7 +9,7 @@ include_once './utils/token.php';
 
 if(!isset($_GET['token'])){
     // http_response_code(401);
-    echo json_encode(array("message" => "В доступе отказано 11"));
+    echo json_encode(array("message" => "В доступе отказано"));
     return;
 }
 $token = new Token();
@@ -24,8 +24,10 @@ try{
         } else {
             return;
         }
+    } else {
+        $isAdmin = true; 
     }
-    $isAdmin = true;
+    
 } catch(Exception $e) {
     // http_response_code(401);
     return json_encode(array("message" => "В доступе отказано", "error" => $e->getMessage()));

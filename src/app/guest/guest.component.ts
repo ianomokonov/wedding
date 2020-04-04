@@ -3,6 +3,8 @@ import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { Guest } from '../models/guest';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApprovedModalComponent } from './approved-modal/approved-modal.component';
 
 @Component({
   selector: 'app-guest',
@@ -13,7 +15,7 @@ export class GuestComponent {
 
   guest: Guest;
 
-  constructor(private auth: AuthService, private route: ActivatedRoute, private router: Router, private api:ApiService) {
+  constructor(private auth: AuthService, private route: ActivatedRoute, private router: Router, private api:ApiService, private modalService: NgbModal) {
     this.route.params.subscribe(params => {
       if (params['token']) {
         this.auth.setToken(params['token']);
@@ -27,6 +29,7 @@ export class GuestComponent {
   public onApproveClick(){
     this.api.ApproveComming(!this.guest.approved).subscribe(() => {
       this.guest.approved = !this.guest.approved;
+      this.modalService.open(ApprovedModalComponent, {centered: true, size: 'lg'})
     });
   }
 

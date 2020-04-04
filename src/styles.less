@@ -28,7 +28,8 @@ html {
 }
 
 
-.form-control, .btn {
+.form-control,
+.btn {
     &:focus {
         box-shadow: none;
     }
@@ -37,4 +38,27 @@ html {
         border: 1px solid @danger;
     }
 
+}
+
+.modal-content {
+    border-radius: 0;
+    border: 3px solid #D5A83B;
+    background-color: #fff;
+    animation: show-modal 0.5s ease-in-out forwards;
+}
+
+.modal-backdrop {
+    background-color: rgba(255, 255, 255, 0.233);
+    opacity: 1 !important;
+    backdrop-filter : blur(2px);
+    animation: show-modal 0.5s ease-in-out forwards;
+}
+
+@keyframes show-modal{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }

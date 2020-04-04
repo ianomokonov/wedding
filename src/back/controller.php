@@ -35,7 +35,9 @@ $repository = new WeddingRepository();
 
 if(isset($_GET['key'])){
     switch($_GET['key']){
-        
+        case 'get-access':
+            echo json_encode($isAdmin);
+            return;
         case 'get-guest-info':
             // http_response_code(200);
             echo json_encode($repository->GetGuestInfo($guestId));

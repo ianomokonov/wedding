@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import './colors.less';
+
+body, html{
+    height: 100%;
+}
+
+.form-control{
+    &:focus{
+        box-shadow: none;
+    }
+
+    &.ng-touched.ng-invalid{
+        border: 1px solid @danger;
+    }
+
+}

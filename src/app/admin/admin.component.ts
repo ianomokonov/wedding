@@ -9,14 +9,5 @@ import { AddGuestComponent } from './add-guest/add-guest.component';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.less']
 })
-export class AdminComponent implements OnInit {
-
-  constructor(private modalService: NgbModal) { }
-
-  ngOnInit(): void {
-  }
-
-  public addGuest(){
-    this.modalService.open(AddGuestComponent, { centered: true, size: 'lg' })
-  }
+export class AdminComponent {
 }

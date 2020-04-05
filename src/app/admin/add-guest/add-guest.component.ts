@@ -2,81 +2,83 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { Guest } from 'src/app/models/guest';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'add-guest',
   templateUrl: './add-guest.component.html',
-  styleUrls: ['./add-guest.component.less']
+  styleUrls: ['./add-guest.component.less'],
 })
-export class AddGuestComponent implements OnInit {
-  public guest: Guest;
-  set _guest(value){
-    this.guest = value;
+export class AddGuestComponent {
+  public localGuest: Guest;
+  set guest(value: Guest) {
+    this.localGuest = value;
+    this.guestFrom.patchValue(this.guest);
   }
-  addGuest: FormGroup;
-  constructor(private api: ApiService, private fb: FormBuilder) {
-    
+  get guest(): Guest {
+    return this.localGuest;
   }
-  
-  ngOnInit(): void {
-    if(this.guest){
-      this.addGuest = this.fb.group({
-        id: [this.guest.id],
-        name: [this.guest.name, [Validators.required]],
-        surname: [this.guest.surname, [Validators.required]],
-        secondname: [this.guest.secondName],
-        transfer: [this.guest.transfer],
-        link: [this.guest.link?.url],
-        alcohole: [this.guest.alcohole],
-        food: [this.guest.food],
-        // children: [this.guest.children],
-        // neighbours: [this.guest.neighbours],
-        approved: [this.guest.approved],
-      })
-      console.log(this.guest);
-    }
-    else{
-      this.addGuest = this.fb.group({
-        name: [null, [Validators.required]],
-        surname: [null, [Validators.required]],
-        secondname: [null]
-      })
-    }
+  public guests: Guest[];
+  public guestFrom: FormGroup;
+  constructor(
+    private api: ApiService,
+    private fb: FormBuilder,
+    private modalService: NgbModal
+  ) {
+    this.guestFrom = this.fb.group({
+      id: [null],
+      name: [null, [Validators.required]],
+      surname: [null, [Validators.required]],
+      secondname: [null],
+      transfer: [null],
+      alcohole: [null],
+      food: [null],
+      // children: [this.guest.children],
+      // neighbours: [this.guest.neighbours],
+      approved: [null],
+    });
   }
 
   public onAddClick(): void {
-    if (this.addGuest.invalid) {
-      for (let [, value] of Object.entries(this.addGuest.controls)) {
-        if (value.invalid) {
-          value.markAsTouched();
-        }
-      }
+    if (this.guestFrom.invalid) {
+      this.setFormFieldsTouched();
       return;
     }
-    console.log(this.addGuest.value);
-    this.api.CreateGuest(this.addGuest.value).subscribe(id => {
-      console.log(id);
-    },
-      error => {
-        console.log(error);
-      });
+
+    const { name, surname, secondName } = this.guestFrom.getRawValue() as Guest;
+    this.api.CreateGuest({ name, surname, secondName }).subscribe(
+      (id) => {
+        this.guests.push({ id, name, surname, secondName });
+        this.modalService.dismissAll();
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
-  public onEditClick(): void{
-    if (this.addGuest.invalid) {
-      for (let [, value] of Object.entries(this.addGuest.controls)) {
-        if (value.invalid) {
-          value.markAsTouched();
-        }
-      }
+  public onEditClick(): void {
+    if (this.guestFrom.invalid) {
+      this.setFormFieldsTouched();
       return;
     }
-    console.log(this.addGuest.value);
-    this.api.UpdateGuest(this.addGuest.value).subscribe(mess => {
-      console.log(mess);
-    },
-      error => {
+    const guest = this.guestFrom.getRawValue();
+    this.api.UpdateGuest(guest).subscribe(
+      (mess) => {
+        Object.assign(this.guest, guest);
+        this.modalService.dismissAll();
+      },
+      (error) => {
         console.log(error);
-      });
+      }
+    );
+  }
+
+  private setFormFieldsTouched() {
+    for (const [, value] of Object.entries(this.guestFrom.controls)) {
+      if (value.invalid) {
+        value.markAsTouched();
+      }
+    }
   }
 }

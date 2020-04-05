@@ -11,9 +11,9 @@
                 Отчество: {{guest.secondName}}
             </div>
             <div *ngIf="guest.transfer">
-                Нужен трансфер
+                Нужен трансфер: {{guest.transfer}}
             </div>
-            <div *ngIf="guest.linkId">
+            <div *ngIf="guest.link">
                 Уникальная ссылка гостя: <a href="guest.link.url">{{guest.link.url}}</a>
             </div>
             <div *ngIf="guest.alcohole">
@@ -26,19 +26,7 @@
                 Приглашение принято: {{guest.approved}}
             </div>
             <button type="button" class="btn btn-primary" (click)="editGuest(guest.id)">Редактировать</button>
+            <button type="button" class="btn btn-primary" (click)="linkGenerate(guest.id)" *ngIf="!guest.link">Сгенерировать ссылку</button>
         </ng-template>
     </ngb-panel>
-    <!-- <ngb-panel>
-    <ng-template ngbPanelTitle>
-    <span>&#9733; <b>Fancy</b> title &#9733;</span>
-    </ng-template>
-    <ng-template ngbPanelContent>
-    222
-    </ng-template>
-</ngb-panel>
-<ngb-panel title="Disabled" [disabled]="true">
-    <ng-template ngbPanelContent>
-    333
-    </ng-template>
-</ngb-panel> -->
 </ngb-accordion>

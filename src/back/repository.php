@@ -89,7 +89,7 @@
 
         public function CreateGuest($guest){
             if(!isset($guest->name) || $guest->name == null){
-                http_response_code(403);
+                //http_response_code(403);
                 return array("message" => "Укажите имя", "method" => "CreateGuest", "requestData" => $guest);
             }
 

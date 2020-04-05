@@ -1,24 +1,64 @@
 <div class="d-flex justify-content-center">
-    <form class="addForm">
-        <div class="form-group">
-            <label for="staticLink">Уникальная ссылка</label>
-            <input type="text" readonly class="form-control-plaintext" id="staticLink" value="@@@">
-        </div>
+    <form class="addForm" [formGroup]="addGuest" (submit)="!!guest ? onEditClick() : onAddClick()">
         <div class="form-group">
             <label for="surname">Фамилия</label>
-            <input type="text" class="form-control" id="surname" placeholder="*обязательно">
+            <input type="text" class="form-control" id="surname" placeholder="*обязательно" formControlName="surname">
         </div>
         <div class="form-group">
             <label for="name">Имя</label>
-            <input type="text" class="form-control" id="name" placeholder="*обязательно">
+            <input type="text" class="form-control" id="name" placeholder="*обязательно" formControlName="name">
         </div>
         <div class="form-group">
             <label for="secondName">Отчество</label>
-            <input type="text" class="form-control" id="secondName" placeholder="(при наличии)">
+            <input type="text" class="form-control" id="secondName" placeholder="(при наличии)" formControlName="secondname">
         </div>
+        <ng-container *ngIf="guest">
+            <div class="form-group">
+                <label for="transfer">Нужен ли трансфер?</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" formControlName="transfer" id="transferT" value="true">
+                    <label class="form-check-label" for="transferT">
+                        Да
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" formControlName="transfer" id="transferF" value="false">
+                    <label class="form-check-label" for="transferF">
+                        Нет
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="link">Уникальная ссылка</label>
+                <input type="text" readonly class="form-control" id="link" formControlName="link">
+            </div>
+            <div class="form-group">
+                <label for="alcohole">Алкоголь</label>
+                <input type="text" class="form-control" id="alcohole" formControlName="alcohole">
+            </div>
+            <div class="form-group">
+                <label for="food">Еда</label>
+                <input type="text" class="form-control" id="food" formControlName="food">
+            </div>
+            <div class="form-group">
+                <label for="approved">Приглашение подтверждено:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" formControlName="approved" id="approvedT" [value]=true>
+                    <label class="form-check-label" for="approvedT">
+                        Да
+                    </label>
+                    </div>
+                    <div class="form-check">
+                    <input class="form-check-input" type="radio" formControlName="approved" id="approvedF" [value]=false>
+                    <label class="form-check-label" for="approvedF">
+                        Нет
+                    </label>
+                </div>
+            </div>
+        </ng-container>
         <div class="d-flex justify-content-around">
-            <button type="button" class="btn btn-primary" *ngIf="!edit">Добавить гостя</button>
-            <button type="button" class="btn btn-primary" *ngIf="edit">Редактировать гостя</button>
+            <button type="submit" class="btn btn-primary" *ngIf="!guest">Добавить гостя</button>
+            <button type="submit" class="btn btn-primary" *ngIf="guest">Редактировать гостя</button>
         </div>
     </form>
 </div>

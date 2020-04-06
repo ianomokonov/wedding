@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between align-items-center py-3">
+  <h2 class="m-0">Список гостей</h2>
+  <button class="btn btn-primary fas fa-plus" (click)="addGuest()"></button>
+</div>
+<ngb-accordion #acc="ngbAccordion">
+  <ngb-panel
+    *ngFor="let guest of guestsList"
+    title="#{{ guest.id }}: {{ guest.surname }} {{ guest.name }}"
+  >
+    <ng-template ngbPanelContent>
+      <div>Фамилия: {{ guest.surname }}</div>
+      <div>Имя: {{ guest.name }}</div>
+      <div *ngIf="guest.secondName">Отчество: {{ guest.secondName }}</div>
+      <div *ngIf="guest.transfer">Нужен трансфер: {{ guest.transfer }}</div>
+      <div *ngIf="guest.link">
+        Уникальная ссылка гостя:
+        <a href="guest.link.url">{{ guest.link.url }}</a>
+      </div>
+      <div *ngIf="guest.alcohole">
+        Предпочтения по алкоголю: {{ guest.alcohole }}
+      </div>
+      <div *ngIf="guest.food">Предпочтения по еде: {{ guest.food }}</div>
+      <div *ngIf="guest.approved">
+        Приглашение принято: {{ guest.approved }}
+      </div>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="editGuest(guest)"
+      >
+        Редактировать
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="linkGenerate(guest)"
+        *ngIf="!guest.link"
+      >
+        Сгенерировать ссылку
+      </button>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

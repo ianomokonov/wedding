@@ -27,6 +27,9 @@ export class EnterComponent implements OnInit {
       }
       this.show = true;
       sessionStorage.removeItem('weddingUserToken');
+    },
+    error => {
+      this.show = true;
     })
     
   }

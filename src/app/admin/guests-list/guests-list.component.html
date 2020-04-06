@@ -14,7 +14,7 @@
       <div *ngIf="guest.transfer">Нужен трансфер: {{ guest.transfer }}</div>
       <div *ngIf="guest.link">
         Уникальная ссылка гостя:
-        <a href="guest.link.url">{{ guest.link.url }}</a>
+        <a href="{{guest.link.url}}">{{ guest.link.url }}</a>
       </div>
       <div *ngIf="guest.alcohole">
         Предпочтения по алкоголю: {{ guest.alcohole }}

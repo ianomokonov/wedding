@@ -4,6 +4,7 @@ import { Guest } from '../../models/guest';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddGuestComponent } from '../add-guest/add-guest.component';
 import { GenerateLinkRequest } from 'src/app/models/requests/GenerateLinkRequest';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'guests-list',
@@ -12,7 +13,13 @@ import { GenerateLinkRequest } from 'src/app/models/requests/GenerateLinkRequest
 })
 export class GuestsListComponent implements OnInit {
   guestsList: Guest[];
-  constructor(private api: ApiService, private modalService: NgbModal) {}
+  linkForm: FormGroup;
+  genLink = false;
+  constructor(private api: ApiService, private modalService: NgbModal, private fb: FormBuilder) {
+    this.linkForm = this.fb.group({
+      header:[null, Validators.required]
+    })
+  }
 
   public ngOnInit(): void {
     this.api.getGuests().subscribe((guest) => {
@@ -34,18 +41,14 @@ export class GuestsListComponent implements OnInit {
   }
 
   public linkGenerate(guest: Guest) {
-
-    // нужно указывать заголок тектом, а не автоматически. Сделать форму
-
-
-
-    // const link = {
-    //   guestId: id,
-    //   header: 'Привет, ' + this.guestEdit.name + '!',
-    // };
-    // this.api.GenerateLink(this.link).subscribe((link) => {
-    //   this.guestEdit.link = link;
-    // });
+    const link = {
+      guestId: guest.id,
+      header: this.linkForm.getRawValue().header,
+    };
+    this.api.GenerateLink(link).subscribe((link) => {
+      guest.link = link;
+    });
+    this.genLink = false;
   }
 }
 

@@ -30,14 +30,38 @@
       >
         Редактировать
       </button>
-      <button
+      <div class="d-flex justify-content-center align-items-center py-3">
+        <button
         type="button"
         class="btn btn-primary"
-        (click)="linkGenerate(guest)"
-        *ngIf="!guest.link"
-      >
-        Сгенерировать ссылку
-      </button>
+        (click)="genLink = true"
+        *ngIf="!genLink&&!guest.link"
+        >
+          Сгенерировать ссылку
+        </button>
+        <div *ngIf="genLink">
+          <form
+          class="addForm p-3"
+          [formGroup]="linkForm"
+          (submit)="linkGenerate(guest)">
+            <div class="form-group">
+              <label for="header">Приветствие</label>
+              <input
+                type="text"
+                class="form-control"
+                id="header"
+                formControlName="header"
+              />
+            </div>
+            <button
+            type="submit"
+            class="btn btn-primary"
+            >
+              Сгенерировать
+            </button>
+          </form>
+        </div>
+      </div>
     </ng-template>
   </ngb-panel>
 </ngb-accordion>

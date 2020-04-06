@@ -43,7 +43,7 @@ export class GuestsListComponent implements OnInit {
   public linkGenerate(guest: Guest) {
     const link = {
       guestId: guest.id,
-      header: this.linkForm.value['header'],
+      header: this.linkForm.getRawValue().header,
     };
     this.api.GenerateLink(link).subscribe((link) => {
       guest.link = link;

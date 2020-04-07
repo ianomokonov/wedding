@@ -35,8 +35,13 @@
             
         }
 
-        public function GetGuests(){
-            $query = $this->database->db->query("SELECT * FROM guest");
+        public function GetGuests($guestId){
+            if($guestId == null){
+                $query = $this->database->db->query("SELECT * FROM guest");
+            } else {
+                $query = $this->database->db->query("SELECT * FROM guest WHERE id != $guestId");
+            }
+            
             $query->setFetchMode(PDO::FETCH_CLASS, 'Guest');
             $guests = [];
             while ($guest = $query->fetch()){
@@ -79,7 +84,7 @@
 
         public function ApproveComming($userId, $approved){
             if($approved == null){
-                //http_response_code(500);
+                // http_response_code(500);
                 return array("message" => "Укажите подтверждение", "method" => "ApproveComming", "requestData" => array($userId, $approved));
             }
             $query = $this->database->db->prepare("UPDATE guest SET approved = ? WHERE id = ?");
@@ -269,3 +274,4 @@
         }
 
     }
+?>

@@ -46,7 +46,7 @@ if(isset($_GET['key'])){
             return;
         case 'get-guests':
             // http_response_code(200);
-            echo json_encode($repository->GetGuests());
+            echo json_encode($repository->GetGuests($guestId));
             return;
         case 'approve-comming':
             // http_response_code(200);

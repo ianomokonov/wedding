@@ -30,13 +30,18 @@
                 return $guest;
             }
 
-            http_response_code(500);
+            //http_response_code(500);
             return array("message" => "Укажите id гостя", "method" => "GetGuestInfo", "requestData" => $id);
             
         }
 
-        public function GetGuests(){
-            $query = $this->database->db->query("SELECT * FROM guest");
+        public function GetGuests($guestId){
+            if($guestId == null){
+                $query = $this->database->db->query("SELECT * FROM guest");
+            } else {
+                $query = $this->database->db->query("SELECT * FROM guest WHERE id != $guestId");
+            }
+            
             $query->setFetchMode(PDO::FETCH_CLASS, 'Guest');
             $guests = [];
             while ($guest = $query->fetch()){
@@ -55,7 +60,7 @@
 
         public function SaveAnswer($guestId, $answer){
             if($guestId == null){
-                http_response_code(403);
+                //http_response_code(403);
                 return array("message" => "Id гостя не может быть пустым", "method" => "SaveAnswer", "requestData" => $answer);
             }
             $query = $this->database->db->prepare("UPDATE guest SET transfer = ?, food = ?, alcohole = ?, hasChild = ? WHERE id = ?");
@@ -79,8 +84,8 @@
 
         public function ApproveComming($userId, $approved){
             if($approved == null){
-                http_response_code(500);
-                return array("message" => "Укажите подтверждение", "method" => "CreateGuest", "requestData" => array($userId, $approved));
+                // http_response_code(500);
+                return array("message" => "Укажите подтверждение", "method" => "ApproveComming", "requestData" => array($userId, $approved));
             }
             $query = $this->database->db->prepare("UPDATE guest SET approved = ? WHERE id = ?");
             $query->execute(array($approved, $userId));
@@ -92,7 +97,6 @@
                 //http_response_code(403);
                 return array("message" => "Укажите имя", "method" => "CreateGuest", "requestData" => $guest);
             }
-
             $insert = $this->database->genInsertQuery((array)$guest, 'guest');
             $query = $this->database->db->prepare($insert[0]);
             if($insert[1][0]!=null){
@@ -103,17 +107,17 @@
 
         public function GenerateLink($link){
             if($link == null || !isset($link->guestId) || $link->guestId == null){
-                http_response_code(500);
+                //http_response_code(500);
                 return array("message" => "Укажите id гостя", "method" => "GenerateLink", "requestData" => $link);
             }
 
             if($link == null || !isset($link->header) || $link->header == null){
-                http_response_code(500);
+                //http_response_code(500);
                 return array("message" => "Укажите заголовок приглашения для ссылки", "method" => "GenerateLink", "requestData" => $link);
             }
 
             if($this->LinkExists($link->guestId)){
-                http_response_code(403);
+                //http_response_code(403);
                 return array("message" => "У гостя уже есть ссылка", "method" => "GenerateLink", "requestData" => $link);
             }
 
@@ -139,7 +143,7 @@
 
         public function UpdateGuest($guest){
             if($guest == null || !isset($guest->id)){
-                http_response_code(500);
+                //http_response_code(500);
                 return array("message" => "Укажите id гостя", "method" => "UpdateGuest", "requestData" => $guest);
             }
 
@@ -153,7 +157,7 @@
 
         public function AddToLink($guest){
             if($guest == null || !isset($guest->guestId) || !isset($guest->linkId)){
-                http_response_code(500);
+                //http_response_code(500);
                 return array("message" => "Укажите id гостя и ссылки", "method" => "AddToLink", "requestData" => $guest);
             }
             $this->UpdateGuest((object) array('id' => $guest->guestId, 'linkId' => $guest->linkId));
@@ -163,7 +167,7 @@
 
         public function RemoveFromLink($guest){
             if($guest == null || !isset($guest->guestId) || !isset($guest->linkId)){
-                http_response_code(500);
+                //http_response_code(500);
                 return array("message" => "Укажите id гостя и ссылки", "method" => "RemoveFromLink", "requestData" => $guest);
             }
             $this->UpdateGuest((object) array('id' => $guest->guestId, 'linkId' => null));
@@ -270,3 +274,4 @@
         }
 
     }
+?>

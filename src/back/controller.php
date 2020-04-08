@@ -44,6 +44,10 @@ if(isset($_GET['key'])){
             // http_response_code(200);
             echo json_encode($repository->GetGuestInfo($guestId));
             return;
+        case 'get-guests':
+            // http_response_code(200);
+            echo json_encode($repository->GetGuests($guestId));
+            return;
         case 'approve-comming':
             // http_response_code(200);
             $data = json_decode(file_get_contents("php://input"));
@@ -69,10 +73,6 @@ if(isset($_GET['key'])){
             case 'get-guest-info-by-id':
                 // http_response_code(200);
                 echo json_encode($repository->GetGuestInfo($_GET['guestId']));
-                return;
-            case 'get-guests':
-                // http_response_code(200);
-                echo json_encode($repository->GetGuests());
                 return;
             case 'create-guest':
                 // http_response_code(200);

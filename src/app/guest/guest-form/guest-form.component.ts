@@ -125,12 +125,12 @@ export class GuestFormComponent implements OnInit {
   }
 
   saveAnswer() {
-    var form = this.guestForm.getRawValue();
-    let fil = form.neighbours.filter(item => item.isChecked);
-    fil.forEach(el => {
+    const form = this.guestForm.getRawValue();
+    const filterCheck = form.neighbours.filter(item => item.isChecked);
+    filterCheck.forEach(el => {
       delete el.isChecked;
     });
-    form.neighbours = fil;
+    form.neighbours = filterCheck;
     if (this.otherFood) {
       form.food = this.otherFood;
     }
@@ -139,9 +139,10 @@ export class GuestFormComponent implements OnInit {
     })
     delete form.hasChild;
     delete form.hasNeighbour;
-    this.api.SaveAnswer(form).subscribe(() => {
-      this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' })
-    });
+    console.log(form);
+    // this.api.SaveAnswer(form).subscribe(() => {
+    //   this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' })
+    // });
     this.initForm();
     this.guests.forEach((guest) => {
       this.addNeighbours('neighbours', guest.id)

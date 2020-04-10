@@ -88,7 +88,9 @@
           formArrayName="neighbours">
           <div ngbDropdown>
             <button type="button" class="btn btn-outline-primary" id="dropdownConfig" ngbDropdownToggle>Выберите из списка</button>
-            <div ngbDropdownMenu aria-labelledby="dropdownConfig">
+            <div ngbDropdownMenu
+              aria-labelledby="dropdownConfig"
+              autoClose = "outside">
               <div class="form-check" ngbDropdownItem
                 *ngFor="let neighbour of guests, let i=index"
                 [formGroupName]=i>

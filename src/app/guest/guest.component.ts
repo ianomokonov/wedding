@@ -45,6 +45,7 @@ export class GuestComponent {
   private getGuestInfo() {
     this.api.getGuestInfo().subscribe(guest => {
       this.guest = guest;
+      console.log(this.guest)
     },
       error => {
         this.router.navigate(['/']);

@@ -139,10 +139,9 @@ export class GuestFormComponent implements OnInit {
     })
     delete form.hasChild;
     delete form.hasNeighbour;
-    console.log(form);
-    // this.api.SaveAnswer(form).subscribe(() => {
-    //   this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' })
-    // });
+    this.api.SaveAnswer(form).subscribe(() => {
+      this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' })
+    });
     this.initForm();
     this.guests.forEach((guest) => {
       this.addNeighbours('neighbours', guest.id)

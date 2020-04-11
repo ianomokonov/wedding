@@ -1,0 +1,114 @@
+<div class="container-fluid form-bg">
+  <form class="guestForm p-3 h-100" [formGroup]="guestForm" (submit)="saveAnswer()">
+    <label>Пожалуйста, ответьте на вопросы, которые мы для вас подготовили:</label>
+    <div>
+      <div class="form-group">
+        <label>Потребуется ли Вам трансфер?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="transfer" id="transferF" value="false" />
+          <label class="form-check-label" for="transferF">
+            Нет
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" formControlName="transfer" id="transferT" value="true" />
+          <label class="form-check-label" for="transferT">
+            Да, до торжества
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Есть ли у Вас особые предпочтения по еде?</label>
+        <div class="form-check" *ngFor="let option of foodOptions">
+          <input class="form-check-input" type="radio" [id]="option.value" formControlName="food"
+            [value]="option.value" />
+          <label class="form-check-label" [for]="option.value">
+            {{option.value}}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="OtherFood" formControlName="food" value="showFood" />
+          <label class="form-check-label" for="OtherFood">
+            Другое
+          </label>
+          <input *ngIf="guestForm.get('food').value === 'showFood'" [(ngModel)]="otherFood"
+            [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Введите текст" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Какой алкоголь Вы предпочитаете?</label>
+        <div class="form-check" *ngFor="let option of alcoholeOptions">
+          <input class="form-check-input" type="radio" [id]="option.value" formControlName="alcohole"
+            [value]="option.value" />
+          <label class="form-check-label" [for]="option.value">
+            {{option.value}}
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Будет ли с Вами на празднике ребенок?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="ChildF" formControlName="hasChild" value="False" />
+          <label class="form-check-label" for="ChildF">
+            Нет
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="ChildT" formControlName="hasChild" value="True" />
+          <label class="form-check-label" for="ChildT">
+            Да
+          </label>
+        </div>
+        <div class="form-group-container" formArrayName="children" *ngIf="guestForm.get('hasChild').value === 'True'">
+          <button class="btn btn-primary fas fa-plus" *ngIf="guestForm.get('children').valid"
+            (click)="addChild('children')"></button>
+          <div [formGroupName]="i" class="form-group"
+            *ngFor="let control of getFormControls('children'); let i = index">
+            <input formControlName="age" placeholder="Введите возраст" class="form-control" type="text">
+            <button class="btn btn-primary fas fa-minus-square" (click)="removeControl(i, 'children')"></button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Хотели бы вы сидеть с кем-то конкретным?</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="NeiF" formControlName="hasNeighbour" value="False" />
+          <label class="form-check-label" for="NeiF">
+            Нет
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="NeiT" formControlName="hasNeighbour" value="True" />
+          <label class="form-check-label" for="NeiT">
+            Да
+          </label>
+        </div>
+        <div class="form-check"
+          *ngIf="guestForm.get('hasNeighbour').value === 'True'"
+          formArrayName="neighbours">
+          <div ngbDropdown>
+            <button type="button" class="btn btn-outline-primary" id="dropdownConfig" ngbDropdownToggle>Выберите из списка</button>
+            <div ngbDropdownMenu
+              aria-labelledby="dropdownConfig"
+              autoClose = "outside">
+              <div class="form-check" ngbDropdownItem
+                *ngFor="let neighbour of guests, let i=index"
+                [formGroupName]=i>
+                <input class="form-check-input" type="checkbox"
+                  formControlName="isChecked"
+                  [id]="'neighbour'+neighbour.id"
+                />
+                <label class="form-check-label" [for]="'neighbour'+neighbour.id">
+                  {{neighbour.surname}} {{neighbour.name}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">Отправить</button>
+      </div>
+    </div>
+  </form>
+</div>

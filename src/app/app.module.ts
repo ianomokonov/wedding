@@ -23,6 +23,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { GuestsListComponent } from './admin/guests-list/guests-list.component';
 import { AddGuestComponent } from './admin/add-guest/add-guest.component';
 import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.component';
+import { GuestFormComponent } from './guest/guest-form/guest-form.component';
+import { GratitudeModalComponent } from './guest/gratitude-modal/gratitude-modal.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.co
     EnterComponent,
     GuestsListComponent,
     AddGuestComponent,
-    ApprovedModalComponent
+    ApprovedModalComponent,
+    GuestFormComponent,
+    GratitudeModalComponent
   ],
   imports: [
     BrowserModule,

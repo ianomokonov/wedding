@@ -4,6 +4,10 @@ import { Alcohole } from 'src/app/models/alcohole';
 
 export const foodOptions: FoodOption[] = [
     {
+      type: Food.None,
+      value: 'Нет предпочтений',
+    },
+    {
       type: Food.Meat,
       value: 'Не ем мясо',
     },

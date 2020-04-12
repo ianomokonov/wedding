@@ -1,0 +1,31 @@
+<h2 class="mb-3">Результаты опроса</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">ФИО</th>
+      <th scope="col">Трансфер</th>
+      <th scope="col">Алкоголь</th>
+      <th scope="col">Еда</th>
+      <th scope="col">Дети</th>
+      <th scope="col">Соседи</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let guest of guestsList">
+      <th scope="row">{{guest.surname}} {{guest.name}} {{guest.secondName}}</th>
+      <td>{{guest.transfer}}</td>
+      <td>{{getAlcohole(guest.alcohole)}}</td>
+      <td>{{getFood(guest.food)}}</td>
+      <td>
+        <tr *ngFor="let child of guest.children">
+            {{child.name}} ({{child.age}} лет)
+        </tr>
+      </td>
+      <td>
+        <tr *ngFor="let neighbour of guest.neighbours">
+            {{neighbour.neighbourName}}
+        </tr>
+      </td>
+    </tr>
+  </tbody>
+</table>

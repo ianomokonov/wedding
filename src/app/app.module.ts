@@ -21,10 +21,11 @@ import { AuthService } from './services/auth.service';
 import { RouterModule } from '@angular/router';
 import { AdminGuard } from './guards/admin.guard';
 import { GuestsListComponent } from './admin/guests-list/guests-list.component';
-import { AddGuestComponent } from './admin/add-guest/add-guest.component';
+import { AddGuestComponent } from './admin/guests-list/add-guest/add-guest.component';
 import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.component';
 import { GuestFormComponent } from './guest/guest-form/guest-form.component';
 import { GratitudeModalComponent } from './guest/gratitude-modal/gratitude-modal.component';
+import { ResultsComponent } from './admin/results/results.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { GratitudeModalComponent } from './guest/gratitude-modal/gratitude-modal
     AddGuestComponent,
     ApprovedModalComponent,
     GuestFormComponent,
-    GratitudeModalComponent
+    GratitudeModalComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

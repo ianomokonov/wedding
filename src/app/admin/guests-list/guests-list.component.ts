@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Guest } from '../../models/guest';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AddGuestComponent } from '../add-guest/add-guest.component';
+import { AddGuestComponent } from './add-guest/add-guest.component';
 import { GenerateLinkRequest } from 'src/app/models/requests/GenerateLinkRequest';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -17,8 +17,8 @@ export class GuestsListComponent implements OnInit {
   genLink = false;
   constructor(private api: ApiService, private modalService: NgbModal, private fb: FormBuilder) {
     this.linkForm = this.fb.group({
-      header:[null, Validators.required]
-    })
+      header: [null, Validators.required],
+    });
   }
 
   public ngOnInit(): void {
@@ -27,7 +27,7 @@ export class GuestsListComponent implements OnInit {
     });
   }
 
-  public addGuest(){
+  public addGuest() {
     const modalRef = this.modalService.open(AddGuestComponent, { centered: true, size: 'lg' });
     modalRef.componentInstance.guests = this.guestsList;
   }

@@ -8,6 +8,7 @@ import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { Guest } from 'src/app/models/guest';
 import { GratitudeModalComponent } from '../gratitude-modal/gratitude-modal.component';
+import { Alcohole } from 'src/app/models/alcohole';
 
 @Component({
   selector: 'guest-form',
@@ -16,6 +17,7 @@ import { GratitudeModalComponent } from '../gratitude-modal/gratitude-modal.comp
 })
 export class GuestFormComponent implements OnInit {
   public foodEnum = Food;
+  public alcoEnum = Alcohole;
   public guestForm: FormGroup;
   public otherFood: string;
   public otherAlco: string;
@@ -30,6 +32,14 @@ export class GuestFormComponent implements OnInit {
   ngOnInit(): void {
     this.api.getGuestInfo().subscribe((guest) => {
       this.guest = guest;
+      console.log(this.guest);
+      if(<String>this.guest.food){
+        this.otherFood = this.guest.food
+        console.log(this.otherFood);
+      }
+      if(<String>this.guest.alcohole){
+        this.otherAlco = this.guest.alcohole
+      }
       this.guestForm.patchValue(guest);
       this.api.getGuests().subscribe((guests) => {
         this.guests = guests;
@@ -60,6 +70,7 @@ export class GuestFormComponent implements OnInit {
     const formControl = <FormArray>this.guestForm.get(formControlName);
     formControl.push(
       this.fb.group({
+        name: [null],
         age: [null, Validators.required],
       })
     );
@@ -70,12 +81,12 @@ export class GuestFormComponent implements OnInit {
     form.removeAt(index);
   }
 
-  addNeighbours(formControlName: string, id) {
+  addNeighbours(formControlName: string, neighbourId) {
     const formControl = <FormArray>this.guestForm.get(formControlName);
     formControl.push(
       this.fb.group({
-        isChecked: [false],
-        neighbourId: [id, Validators.required],
+        isChecked: [this.guest.neighbours.find(item => item.neighbourId == neighbourId)],
+        neighbourId: [neighbourId, Validators.required],
         guestId: [this.guest.id, Validators.required],
       })
     );

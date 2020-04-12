@@ -49,4 +49,8 @@ export const foodOptions: FoodOption[] = [
       type: Alcohole.NoneAlcohole,
       value: 'Не буду пить алкоголь',
     },
+    {
+      type: Alcohole.Other,
+      value: 'Другое',
+    }
   ];

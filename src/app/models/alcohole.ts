@@ -5,5 +5,6 @@ export enum Alcohole{
     Whiskey,
     Cognac,
     Vodka,
-    NoneAlcohole
+    NoneAlcohole,
+    Other
 }

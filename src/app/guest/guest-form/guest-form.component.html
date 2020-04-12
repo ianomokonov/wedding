@@ -20,31 +20,29 @@
       <div class="form-group">
         <label>Есть ли у Вас особые предпочтения по еде?</label>
         <div class="form-check" *ngFor="let option of foodOptions">
-          <input class="form-check-input" type="radio" [id]="option.value" formControlName="food"
+          <input class="form-check-input" type="radio" [id]="'food'+option.value" formControlName="food"
             [value]="option.type" />
-          <label class="form-check-label" [for]="option.value">
-            {{option.value}}
-          </label>
-        </div>
-        <input *ngIf="guestForm.get('food').value === foodEnum.Other" [(ngModel)]="otherFood"
-            [ngModelOptions]="{standalone: true}" type="text" class="form-control mt-1" placeholder="Введите текст" />
-      </div>
-      <div class="form-group">
-        <label>Какой алкоголь Вы предпочитаете?</label>
-        <div class="form-check" *ngFor="let option of alcoholeOptions">
-          <input class="form-check-input" type="radio" [id]="option.value" formControlName="alcohole"
-            [value]="option.type" />
-          <label class="form-check-label" [for]="option.value">
+          <label class="form-check-label" [for]="'food'+option.value">
             {{option.value}}
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" id="OtherAlco" formControlName="alcohole" value="showAlco" />
-          <label class="form-check-label" for="OtherAlco">
-            Другое
+          <input *ngIf="guestForm.get('food').value === foodEnum.Other" [(ngModel)]="otherFood"
+          [ngModelOptions]="{standalone: true}" type="text" class="form-control " placeholder="Введите текст" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Какой алкоголь Вы предпочитаете?</label>
+        <div class="form-check" *ngFor="let option of alcoholeOptions">
+          <input class="form-check-input" type="radio" [id]="'alco'+option.value" formControlName="alcohole"
+            [value]="option.type" />
+          <label class="form-check-label" [for]="'alco'+option.value">
+            {{option.value}}
           </label>
-          <input *ngIf="guestForm.get('alcohole').value === 'showAlco'" [(ngModel)]="otherAlco"
-            [ngModelOptions]="{standalone: true}" type="text" class="form-control my-3" placeholder="Введите текст" />
+        </div>
+        <div class="form-check">
+          <input *ngIf="guestForm.get('alcohole').value === alcoEnum.Other" [(ngModel)]="otherAlco"
+          [ngModelOptions]="{standalone: true}" type="text" class="form-control my-3" placeholder="Введите текст" />
         </div>
       </div>
       <div class="form-group">
@@ -69,8 +67,9 @@
             <div class="age">
               <div [formGroupName]="i" class="form-group d-flex"
               *ngFor="let control of getFormControls('children'); let i = index">
-              <input formControlName="age" placeholder="Укажите возраст" class="form-control" type="text">
-              <button class="btn btn-primary fas fa-minus-square mx-2" (click)="removeControl(i, 'children')"></button>
+              <input formControlName="name" placeholder="Введите имя" class="form-control mr-1" type="text">
+              <input formControlName="age" placeholder="Укажите возраст" class="form-control ml-1" type="text">
+              <button class="btn btn-primary fas fa-minus mx-2" (click)="removeControl(i, 'children')"></button>
             </div>
             </div>
           </div>
@@ -93,11 +92,10 @@
         <div class="form-check"
           *ngIf="guestForm.get('hasNeighbour').value"
           formArrayName="neighbours">
-          <div ngbDropdown>
+          <div ngbDropdown autoClose = "outside">
             <button type="button" class="btn btn-light" id="dropdownConfig" ngbDropdownToggle>Выберите из списка</button>
             <div ngbDropdownMenu
-              aria-labelledby="dropdownConfig"
-              autoClose = "outside">
+              aria-labelledby="dropdownConfig">
               <div class="form-check" ngbDropdownItem
                 *ngFor="let neighbour of guests, let i=index"
                 [formGroupName]=i>

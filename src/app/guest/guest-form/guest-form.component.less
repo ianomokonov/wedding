@@ -42,4 +42,44 @@
         width: 200px;
         padding-left: 10px;
     }
+
+    .form-check-input {
+        display: none;
+    }
+    .form-check-input + label {
+        position: relative;
+        padding: 0 0 0 35px;
+        cursor: pointer;
+    }
+    .form-check-input + label:before {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 0px;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #FFFFFF;
+        border-radius: 50%;
+    }
+    .form-check-input + label:after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 0px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-image: url(../../../assets/check.png);
+        background-color: white;
+        background-size: 8px 8px;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+    }
+    .form-check-input:checked + label:after {
+        opacity: 1;
+    }
+    // .form-check-input:focus + label:before {
+    //     box-shadow: 0 0 0 3px rgba(255,255,0,.7);
+    // }
 }

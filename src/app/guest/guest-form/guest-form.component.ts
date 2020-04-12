@@ -61,6 +61,7 @@ export class GuestFormComponent implements OnInit {
   ];
   public guestForm: FormGroup;
   public otherFood: string;
+  public otherAlco: string;
   public guest: Guest;
   public guests: Guest[];
   constructor(private fb: FormBuilder, private api: ApiService, private configDropdown: NgbDropdownConfig, private modalService: NgbModal) {
@@ -133,6 +134,9 @@ export class GuestFormComponent implements OnInit {
     form.neighbours = filterCheck;
     if (this.otherFood) {
       form.food = this.otherFood;
+    }
+    if (this.otherAlco) {
+      form.alcohole = this.otherAlco;
     }
     form.children.forEach(el => {
       el['guestId'] = this.guest.id;

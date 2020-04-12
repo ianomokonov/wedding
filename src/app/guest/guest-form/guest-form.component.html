@@ -1,17 +1,17 @@
 <div class="container-fluid form-bg">
   <form class="guestForm p-3 h-100" [formGroup]="guestForm" (submit)="saveAnswer()">
-    <label>Пожалуйста, ответьте на вопросы, которые мы для вас подготовили:</label>
-    <div>
+    <label class="py-4">Пожалуйста, ответьте на вопросы, которые мы для вас подготовили:</label>
+    <div class="form-block">
       <div class="form-group">
         <label>Потребуется ли Вам трансфер?</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="transfer" id="transferF" value="false" />
+          <input class="form-check-input" type="radio" formControlName="transfer" id="transferF" [value]="false" />
           <label class="form-check-label" for="transferF">
             Нет
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" formControlName="transfer" id="transferT" value="true" />
+          <input class="form-check-input" type="radio" formControlName="transfer" id="transferT" [value]="true" />
           <label class="form-check-label" for="transferT">
             Да, до торжества
           </label>
@@ -32,7 +32,7 @@
             Другое
           </label>
           <input *ngIf="guestForm.get('food').value === 'showFood'" [(ngModel)]="otherFood"
-            [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Введите текст" />
+            [ngModelOptions]="{standalone: true}" type="text" class="form-control my-3" placeholder="Введите текст" />
         </div>
       </div>
       <div class="form-group">
@@ -44,50 +44,63 @@
             {{option.value}}
           </label>
         </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="OtherAlco" formControlName="alcohole" value="showAlco" />
+          <label class="form-check-label" for="OtherAlco">
+            Другое
+          </label>
+          <input *ngIf="guestForm.get('alcohole').value === 'showAlco'" [(ngModel)]="otherAlco"
+            [ngModelOptions]="{standalone: true}" type="text" class="form-control my-3" placeholder="Введите текст" />
+        </div>
       </div>
       <div class="form-group">
         <label>Будет ли с Вами на празднике ребенок?</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" id="ChildF" formControlName="hasChild" value="False" />
+          <input class="form-check-input" type="radio" id="ChildF" formControlName="hasChild" [value]="false" />
           <label class="form-check-label" for="ChildF">
             Нет
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" id="ChildT" formControlName="hasChild" value="True" />
+          <input class="form-check-input" type="radio" id="ChildT" formControlName="hasChild" [value]="true" />
           <label class="form-check-label" for="ChildT">
             Да
           </label>
-        </div>
-        <div class="form-group-container" formArrayName="children" *ngIf="guestForm.get('hasChild').value === 'True'">
-          <button class="btn btn-primary fas fa-plus" *ngIf="guestForm.get('children').valid"
-            (click)="addChild('children')"></button>
-          <div [formGroupName]="i" class="form-group"
-            *ngFor="let control of getFormControls('children'); let i = index">
-            <input formControlName="age" placeholder="Введите возраст" class="form-control" type="text">
-            <button class="btn btn-primary fas fa-minus-square" (click)="removeControl(i, 'children')"></button>
+          <div class="form-group-container d-flex" formArrayName="children" *ngIf="guestForm.get('hasChild').value">
+            <div class="addButton">
+              <button class="btn btn-primary fas fa-plus" *ngIf="guestForm.get('children').valid"
+              (click)="addChild('children')"
+              style="height: 38px;"></button>
+            </div>
+            <div class="age">
+              <div [formGroupName]="i" class="form-group d-flex"
+              *ngFor="let control of getFormControls('children'); let i = index">
+              <input formControlName="age" placeholder="Укажите возраст" class="form-control" type="text">
+              <button class="btn btn-primary fas fa-minus-square mx-2" (click)="removeControl(i, 'children')"></button>
+            </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="form-group">
         <label>Хотели бы вы сидеть с кем-то конкретным?</label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" id="NeiF" formControlName="hasNeighbour" value="False" />
+          <input class="form-check-input" type="radio" id="NeiF" formControlName="hasNeighbour" [value]="false" />
           <label class="form-check-label" for="NeiF">
             Нет
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" id="NeiT" formControlName="hasNeighbour" value="True" />
+          <input class="form-check-input" type="radio" id="NeiT" formControlName="hasNeighbour" [value]="true" />
           <label class="form-check-label" for="NeiT">
             Да
           </label>
         </div>
         <div class="form-check"
-          *ngIf="guestForm.get('hasNeighbour').value === 'True'"
+          *ngIf="guestForm.get('hasNeighbour').value"
           formArrayName="neighbours">
           <div ngbDropdown>
-            <button type="button" class="btn btn-outline-primary" id="dropdownConfig" ngbDropdownToggle>Выберите из списка</button>
+            <button type="button" class="btn btn-light" id="dropdownConfig" ngbDropdownToggle>Выберите из списка</button>
             <div ngbDropdownMenu
               aria-labelledby="dropdownConfig"
               autoClose = "outside">

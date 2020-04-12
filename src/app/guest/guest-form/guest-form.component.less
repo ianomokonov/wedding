@@ -43,15 +43,15 @@
         padding-left: 10px;
     }
 
-    .form-check-input {
+    .form-check-input.styled{
         display: none;
     }
-    .form-check-input + label {
+    .form-check-input.styled + label {
         position: relative;
         padding: 0 0 0 35px;
         cursor: pointer;
     }
-    .form-check-input + label:before {
+    .form-check-input.styled + label:before {
         content: '';
         position: absolute;
         top: 3px;
@@ -61,7 +61,7 @@
         border: 2px solid #FFFFFF;
         border-radius: 50%;
     }
-    .form-check-input + label:after {
+    .form-check-input.styled + label:after {
         content: '';
         position: absolute;
         top: 3px;
@@ -76,7 +76,7 @@
         background-repeat: no-repeat;
         opacity: 0;
     }
-    .form-check-input:checked + label:after {
+    .form-check-input:checked.styled + label:after {
         opacity: 1;
     }
     // .form-check-input:focus + label:before {

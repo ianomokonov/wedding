@@ -1,5 +1,5 @@
 export enum Food{
-    NoneFood,
+    Other,
     Meat,
     Fish
 }

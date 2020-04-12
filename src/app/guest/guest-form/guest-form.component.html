@@ -21,11 +21,12 @@
         <label>Есть ли у Вас особые предпочтения по еде?</label>
         <div class="form-check" *ngFor="let option of foodOptions">
           <input class="form-check-input" type="radio" [id]="option.value" formControlName="food"
-            [value]="option.value" />
+            [value]="option.type" />
           <label class="form-check-label" [for]="option.value">
             {{option.value}}
           </label>
         </div>
+<<<<<<< HEAD
         <div class="form-check">
           <input class="form-check-input" type="radio" id="OtherFood" formControlName="food" value="showFood" />
           <label class="form-check-label" for="OtherFood">
@@ -34,12 +35,16 @@
           <input *ngIf="guestForm.get('food').value === 'showFood'" [(ngModel)]="otherFood"
             [ngModelOptions]="{standalone: true}" type="text" class="form-control my-3" placeholder="Введите текст" />
         </div>
+=======
+        <input *ngIf="guestForm.get('food').value === foodEnum.Other" [(ngModel)]="otherFood"
+            [ngModelOptions]="{standalone: true}" type="text" class="form-control mt-1" placeholder="Введите текст" />
+>>>>>>> master
       </div>
       <div class="form-group">
         <label>Какой алкоголь Вы предпочитаете?</label>
         <div class="form-check" *ngFor="let option of alcoholeOptions">
           <input class="form-check-input" type="radio" [id]="option.value" formControlName="alcohole"
-            [value]="option.value" />
+            [value]="option.type" />
           <label class="form-check-label" [for]="option.value">
             {{option.value}}
           </label>

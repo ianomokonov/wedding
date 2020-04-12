@@ -1,12 +1,12 @@
 import { Child } from '../child';
 import { Neighbour } from '../neighbour';
 
-export interface SaveAnswerRequest{
-    transfer: boolean;
-    alcohole: string;
-    food: string;
-    approved: boolean;
+export interface SaveAnswerRequest {
+  transfer: boolean;
+  alcohole: string;
+  food: string;
+  approved: boolean;
 
-    children: Child[];
-    neighbours: Neighbour[];
+  children: Child[];
+  neighbours: Neighbour[];
 }

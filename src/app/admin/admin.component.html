@@ -1,3 +1,12 @@
+<div class="border-bottom py-2 mb-3">
+  <div class="container">
+    <nav class="nav nav-pills nav-justified">
+      <a class="nav-link" routerLink="guest-list" routerLinkActive="active">Список гостей</a>
+      <a class="nav-link" routerLink="results" routerLinkActive="active">Результаты опроса</a>
+      <a class="nav-link" routerLink="statistics" routerLinkActive="active">Статистика</a>
+    </nav>
+  </div>
+</div>
 <div class="container">
-    <guests-list></guests-list>
+  <router-outlet></router-outlet>
 </div>

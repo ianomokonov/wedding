@@ -26,6 +26,7 @@
                 $guest->hasChild = $guest->hasChild == '1';
                 $guest->transfer = $guest->transfer == '1';
                 $guest->approved = $guest->approved == '1';
+                $guest->hasNeighbour = count($guest->neighbours) > 0;
                 
                 return $guest;
             }
@@ -66,11 +67,9 @@
             $query = $this->database->db->prepare("UPDATE guest SET transfer = ?, food = ?, alcohole = ?, hasChild = ? WHERE id = ?");
             $query->execute(array($answer->transfer, $answer->food, $answer->alcohole, $answer->hasChild, $guestId));
             $this->RemoveGuestChildren($guestId);
-            if($answer->hasChild){
-                foreach ($answer->children as $child){
-                    $child->guestId = $guestId;
-                    $this->AddGuestChild($child);
-                }
+            foreach ($answer->children as $child){
+                $child->guestId = $guestId;
+                $this->AddGuestChild($child);
             }
 
             foreach ($answer->neighbours as $neighbour){
@@ -210,7 +209,7 @@
         private function GetGuestNeighbours($guestId = null)
         {
             if($guestId != null){
-                $query = $this->database->db->prepare("SELECT * FROM neighbour WHERE guestId = ?");
+                $query = $this->database->db->prepare("SELECT n.id, neighbourId, guestId, g.name as neighbourName FROM neighbour n JOIN guest g ON n.neighbourId=g.id WHERE n.guestId = ?");
                 $query->execute(array($guestId));
                 $query->setFetchMode(PDO::FETCH_CLASS, 'Neighbour');
                 return $query->fetchAll();

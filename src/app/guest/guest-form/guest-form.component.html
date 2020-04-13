@@ -5,13 +5,13 @@
       <div class="form-group">
         <label>Потребуется ли Вам трансфер?</label>
         <div class="form-check">
-          <input class="form-check-input styled" type="radio" formControlName="transfer" id="transferF" [value]="false" />
+          <input class="form-check-input" type="radio" formControlName="transfer" id="transferF" [value]="false" />
           <label class="form-check-label" for="transferF">
             Нет
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input styled" type="radio" formControlName="transfer" id="transferT" [value]="true" />
+          <input class="form-check-input" type="radio" formControlName="transfer" id="transferT" [value]="true" />
           <label class="form-check-label" for="transferT">
             Да, до торжества
           </label>
@@ -20,7 +20,7 @@
       <div class="form-group">
         <label>Есть ли у Вас особые предпочтения по еде?</label>
         <div class="form-check" *ngFor="let option of foodOptions">
-          <input class="form-check-input styled" type="radio" [id]="'food'+option.value" formControlName="food"
+          <input class="form-check-input" type="radio" [id]="'food'+option.value" formControlName="food"
             [value]="option.type" />
           <label class="form-check-label" [for]="'food'+option.value">
             {{option.value}}
@@ -34,7 +34,7 @@
       <div class="form-group">
         <label>Какой алкоголь Вы предпочитаете?</label>
         <div class="form-check" *ngFor="let option of alcoholeOptions">
-          <input class="form-check-input styled" type="radio" [id]="'alco'+option.value" formControlName="alcohole"
+          <input class="form-check-input" type="radio" [id]="'alco'+option.value" formControlName="alcohole"
             [value]="option.type" />
           <label class="form-check-label" [for]="'alco'+option.value">
             {{option.value}}
@@ -48,13 +48,13 @@
       <div class="form-group">
         <label>Будет ли с Вами на празднике ребенок?</label>
         <div class="form-check">
-          <input class="form-check-input styled" type="radio" id="ChildF" formControlName="hasChild" [value]="false" />
+          <input class="form-check-input" type="radio" id="ChildF" formControlName="hasChild" [value]="false" />
           <label class="form-check-label" for="ChildF">
             Нет
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input styled" type="radio" id="ChildT" formControlName="hasChild" [value]="true" />
+          <input class="form-check-input" type="radio" id="ChildT" formControlName="hasChild" [value]="true" />
           <label class="form-check-label" for="ChildT">
             Да
           </label>
@@ -78,13 +78,13 @@
       <div class="form-group">
         <label>Хотели бы вы сидеть с кем-то конкретным?</label>
         <div class="form-check">
-          <input class="form-check-input styled" type="radio" id="NeiF" formControlName="hasNeighbour" [value]="false" />
+          <input class="form-check-input" type="radio" id="NeiF" formControlName="hasNeighbour" [value]="false" />
           <label class="form-check-label" for="NeiF">
             Нет
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input styled" type="radio" id="NeiT" formControlName="hasNeighbour" [value]="true" />
+          <input class="form-check-input" type="radio" id="NeiT" formControlName="hasNeighbour" [value]="true" />
           <label class="form-check-label" for="NeiT">
             Да
           </label>
@@ -98,7 +98,7 @@
               aria-labelledby="dropdownConfig">
               <div class="form-check" ngbDropdownItem
                 *ngFor="let neighbour of guests, let i=index"
-                [formGroupName]=i>
+                [formGroupName]="i">
                 <input class="form-check-input" type="checkbox"
                   formControlName="isChecked"
                   [id]="'neighbour'+neighbour.id"

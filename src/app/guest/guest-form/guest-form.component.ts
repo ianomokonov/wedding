@@ -33,11 +33,11 @@ export class GuestFormComponent implements OnInit {
     this.api.getGuestInfo().subscribe((guest) => {
       this.guest = guest;
       this.guestForm.patchValue(guest);
-      if(this.guest.food.length > 2){
+      if(this.guest.food.length > 1){
         this.otherFood = this.guest.food;
         this.guestForm.get('food').setValue("3");
       }
-      if(this.guest.alcohole.length > 2){
+      if(this.guest.alcohole.length > 1){
         this.otherAlco = this.guest.alcohole;
         this.guestForm.get('alcohole').setValue("7");
       }
@@ -110,6 +110,12 @@ export class GuestFormComponent implements OnInit {
         el.guestId = this.guest.id;
         el.name = '';
       });
+      if (!form.hasChild) {
+        delete form.children;
+      };
+      if (!form.hasNeighbour) {
+        delete form.neighbours;
+      };
       delete form.hasChild;
       delete form.hasNeighbour;
       this.api.SaveAnswer(form).subscribe(() => {

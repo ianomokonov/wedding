@@ -21,10 +21,10 @@ export class ResultsComponent implements OnInit {
   }
 
   getFood(type: Food){
-    return foodOptions.find(option => option.type == type)?.value;
+    return foodOptions.find(option => option.type == type)?.value || type;
   }
 
   getAlcohole(type: Alcohole){
-    return alcoholeOptions.find(option => option.type == type)?.value;
+    return alcoholeOptions.find(option => option.type == type)?.value || type;
   }
 }

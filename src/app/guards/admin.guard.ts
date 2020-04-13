@@ -13,13 +13,14 @@ export class AdminGuard implements CanActivate {
     if (token) {
       return this.api.checkAccess().pipe(
         tap((isAdmin) => {
+          console.log(isAdmin)
           if (!isAdmin) {
             this.router.navigate(['enter']);
           }
         })
       );
     }
-
+    this.router.navigate(['enter']);
     return false;
   }
 }

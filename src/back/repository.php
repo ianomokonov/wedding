@@ -71,7 +71,7 @@
                 $child->guestId = $guestId;
                 $this->AddGuestChild($child);
             }
-
+            $this->RemoveGuestNeighbours($guestId);
             foreach ($answer->neighbours as $neighbour){
                 $neighbour->guestId = $guestId;
                 $this->AddGuestNeighbour($neighbour);
@@ -268,6 +268,12 @@
 
         private function RemoveGuestChildren($guestId){
             $query = "DELETE FROM child WHERE guestId = ?";
+            $stmt = $this->database->db->prepare( $query );
+            $stmt->execute(array($guestId));
+        }
+        
+        private function RemoveGuestNeighbours($guestId){
+            $query = "DELETE FROM neighbour WHERE guestId = ?";
             $stmt = $this->database->db->prepare( $query );
             $stmt->execute(array($guestId));
         }

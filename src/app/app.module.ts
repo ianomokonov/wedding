@@ -11,7 +11,7 @@ import { FormBuilder } from '@angular/forms';
 //HTTP запросы
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { ApiService } from './services/api.service'
+import { ApiService } from './services/api.service';
 import { GuestComponent } from './guest/guest.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdminComponent } from './admin/admin.component';
@@ -26,7 +26,7 @@ import { ApprovedModalComponent } from './guest/approved-modal/approved-modal.co
 import { GuestFormComponent } from './guest/guest-form/guest-form.component';
 import { GratitudeModalComponent } from './guest/gratitude-modal/gratitude-modal.component';
 import { ResultsComponent } from './admin/results/results.component';
-
+import { StatisticsComponent } from './admin/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,8 @@ import { ResultsComponent } from './admin/results/results.component';
     ApprovedModalComponent,
     GuestFormComponent,
     GratitudeModalComponent,
-    ResultsComponent
+    ResultsComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,9 +58,9 @@ import { ResultsComponent } from './admin/results/results.component';
     HttpClient,
     ApiService,
     AuthService,
-    AdminGuard
+    AdminGuard,
   ],
   entryComponents: [ApprovedModalComponent],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

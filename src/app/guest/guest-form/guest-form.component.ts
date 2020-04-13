@@ -32,15 +32,15 @@ export class GuestFormComponent implements OnInit {
   ngOnInit(): void {
     this.api.getGuestInfo().subscribe((guest) => {
       this.guest = guest;
-      console.log(this.guest);
-      if(<String>this.guest.food){
-        this.otherFood = this.guest.food
-        console.log(this.otherFood);
-      }
-      if(<String>this.guest.alcohole){
-        this.otherAlco = this.guest.alcohole
-      }
       this.guestForm.patchValue(guest);
+      if(this.guest.food.length > 2){
+        this.otherFood = this.guest.food;
+        this.guestForm.get('food').setValue("3");
+      }
+      if(this.guest.alcohole.length > 2){
+        this.otherAlco = this.guest.alcohole;
+        this.guestForm.get('alcohole').setValue("7");
+      }
       this.api.getGuests().subscribe((guests) => {
         this.guests = guests;
         this.guests.forEach((guest) => {
@@ -70,7 +70,7 @@ export class GuestFormComponent implements OnInit {
     const formControl = <FormArray>this.guestForm.get(formControlName);
     formControl.push(
       this.fb.group({
-        name: [null],
+        name: [null, Validators.required],
         age: [null, Validators.required],
       })
     );
@@ -93,29 +93,34 @@ export class GuestFormComponent implements OnInit {
   }
 
   saveAnswer() {
-    const form = this.guestForm.getRawValue();
-    const filterCheck = form.neighbours.filter((item) => item.isChecked);
-    filterCheck.forEach((el) => {
-      delete el.isChecked;
-    });
-    form.neighbours = filterCheck;
-    if (this.otherFood) {
-      form.food = this.otherFood;
-    }
-    if (this.otherAlco) {
-      form.alcohole = this.otherAlco;
-    }
-    form.children.forEach((el) => {
-      el.guestId = this.guest.id;
-      el.name = '';
-    });
-    delete form.hasChild;
-    delete form.hasNeighbour;
-    this.api.SaveAnswer(form).subscribe(() => {
-      this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' });
-      this.guests.forEach((guest) => {
-        this.addNeighbours('neighbours', guest.id);
+    if (this.guestForm.valid) {
+      const form = this.guestForm.getRawValue();
+      const filterCheck = form.neighbours.filter((item) => item.isChecked);
+      filterCheck.forEach((el) => {
+        delete el.isChecked;
       });
-    });
+      form.neighbours = filterCheck;
+      if (form.food == "3") {
+        form.food = this.otherFood;
+      }
+      if (form.alcohole == "7") {
+        form.alcohole = this.otherAlco;
+      }
+      form.children.forEach((el) => {
+        el.guestId = this.guest.id;
+        el.name = '';
+      });
+      delete form.hasChild;
+      delete form.hasNeighbour;
+      this.api.SaveAnswer(form).subscribe(() => {
+        this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' });
+        this.guests.forEach((guest) => {
+          this.addNeighbours('neighbours', guest.id);
+        });
+      });
+    }
+    else{
+      return;
+    }
   }
 }

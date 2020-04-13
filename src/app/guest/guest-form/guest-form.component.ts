@@ -32,7 +32,15 @@ export class GuestFormComponent implements OnInit {
   ngOnInit(): void {
     this.api.getGuestInfo().subscribe((guest) => {
       this.guest = guest;
-      console.log(guest);
+      this.guest.children.forEach(child => {
+        const formControl = <FormArray>this.guestForm.get('children');
+        formControl.push(
+          this.fb.group({
+            name: [child.name, Validators.required],
+            age: [child.age, Validators.required],
+          })
+        );
+      })
       this.guestForm.patchValue(guest);
       if(this.guest.food.length > 1){
         this.otherFood = this.guest.food;
@@ -80,6 +88,9 @@ export class GuestFormComponent implements OnInit {
   removeControl(index: number, formName: string) {
     const form = <FormArray>this.guestForm.get(formName);
     form.removeAt(index);
+    if (form.value.length == 0) {
+      this.guestForm.value.hasChild = false;
+    }
   }
 
   addNeighbours(formControlName: string, neighbourId) {
@@ -128,9 +139,6 @@ export class GuestFormComponent implements OnInit {
       delete form.hasNeighbour;
       this.api.SaveAnswer(form).subscribe(() => {
         this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' });
-        this.guests.forEach((guest) => {
-          this.addNeighbours('neighbours', guest.id);
-        });
       });
     }
   }

@@ -32,6 +32,7 @@ export class GuestFormComponent implements OnInit {
   ngOnInit(): void {
     this.api.getGuestInfo().subscribe((guest) => {
       this.guest = guest;
+      console.log(guest);
       this.guestForm.patchValue(guest);
       if(this.guest.food.length > 1){
         this.otherFood = this.guest.food;
@@ -93,22 +94,29 @@ export class GuestFormComponent implements OnInit {
   }
 
   saveAnswer() {
-    if (this.guestForm.valid) {
+    if (this.guestForm.invalid) {
+      for (let [, value] of Object.entries(this.guestForm.controls)) {
+        if (value.invalid) {
+          value.markAsTouched();
+        }
+      }
+      return;
+    }
+    else{
       const form = this.guestForm.getRawValue();
       const filterCheck = form.neighbours.filter((item) => item.isChecked);
       filterCheck.forEach((el) => {
         delete el.isChecked;
       });
       form.neighbours = filterCheck;
-      if (form.food == "3") {
+      if (form.food == this.foodEnum.Other) {
         form.food = this.otherFood;
       }
-      if (form.alcohole == "7") {
+      if (form.alcohole == this.alcoEnum.Other) {
         form.alcohole = this.otherAlco;
       }
       form.children.forEach((el) => {
         el.guestId = this.guest.id;
-        el.name = '';
       });
       if (!form.hasChild) {
         delete form.children;
@@ -124,9 +132,6 @@ export class GuestFormComponent implements OnInit {
           this.addNeighbours('neighbours', guest.id);
         });
       });
-    }
-    else{
-      return;
     }
   }
 }

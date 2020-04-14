@@ -5,5 +5,6 @@ export enum Alcohole{
     Whiskey = '3',
     Cognac = '4',
     Vodka = '5',
-    NoneAlcohole = '6'
+    NoneAlcohole = '6',
+    Other = '7'
 }

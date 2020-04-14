@@ -1,5 +1,6 @@
 export enum Food{
-    Other = '0',
+    None = '0',
     Meat = '1',
-    Fish = '2'
+    Fish = '2',
+    Other = '3'
 }

@@ -53,7 +53,7 @@ export class GuestFormComponent implements OnInit {
       this.api.getGuests().subscribe((guests) => {
         this.guests = guests;
         this.guests.forEach((guest) => {
-          this.addNeighbours('neighbours', guest.id);
+          this.addNeighbours(guest.id);
         });
       });
     });
@@ -75,8 +75,8 @@ export class GuestFormComponent implements OnInit {
     return (<FormArray>this.guestForm.get(form)).controls;
   }
 
-  addChild(formControlName: string) {
-    const formControl = <FormArray>this.guestForm.get(formControlName);
+  addChild() {
+    const formControl = <FormArray>this.guestForm.get('children');
     formControl.push(
       this.fb.group({
         name: [null, Validators.required],
@@ -93,8 +93,8 @@ export class GuestFormComponent implements OnInit {
     }
   }
 
-  addNeighbours(formControlName: string, neighbourId) {
-    const formControl = <FormArray>this.guestForm.get(formControlName);
+  addNeighbours(neighbourId) {
+    const formControl = <FormArray>this.guestForm.get('neighbours');
     formControl.push(
       this.fb.group({
         isChecked: [this.guest.neighbours.find(item => item.neighbourId == neighbourId)],

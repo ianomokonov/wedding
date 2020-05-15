@@ -9,7 +9,7 @@ export interface Guest{
     secondName?:string;
     transfer?: boolean;
     linkId?:number;
-    alcohole?: string;
+    alcohole?: string[];
     food?: string;
     approved?: boolean;
 

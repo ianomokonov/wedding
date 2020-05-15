@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { Food } from 'src/app/models/food';
 import { alcoholeOptions, foodOptions } from './options';
-import { Option, FoodOption, AlcoholeOption } from 'src/app/models/option';
 import { ApiService } from 'src/app/services/api.service';
-import { NgbDropdownConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Guest } from 'src/app/models/guest';
 import { GratitudeModalComponent } from '../gratitude-modal/gratitude-modal.component';
 import { Alcohole } from 'src/app/models/alcohole';
@@ -29,26 +27,42 @@ export class GuestFormComponent implements OnInit {
     this.initForm();
   }
 
+  public get alcohole(): FormArray {
+    return this.guestForm.get('alcohole') as FormArray;
+  }
+
   ngOnInit(): void {
     this.api.getGuestInfo().subscribe((guest) => {
       this.guest = guest;
-      this.guest.children.forEach(child => {
-        const formControl = <FormArray>this.guestForm.get('children');
+      const formControl = <FormArray>this.guestForm.get('children');
+      this.guest.children.forEach((child) => {
         formControl.push(
           this.fb.group({
             name: [child.name, Validators.required],
             age: [child.age, Validators.required],
           })
         );
-      })
+      });
+      const alcoholeControl = <FormArray>this.guestForm.get('alcohole');
+      alcoholeOptions.forEach((drink) => {
+        let d = this.guest.alcohole.find((o) => drink.type == o);
+        if (drink.type === Alcohole.Other) {
+          d = this.guest.alcohole.find((o) => !alcoholeOptions.find((option) => option.type == o));
+          this.otherAlco = d;
+        }
+
+        alcoholeControl.push(
+          this.fb.group({
+            name: drink.value,
+            value: drink.type,
+            checked: !!d,
+          })
+        );
+      });
       this.guestForm.patchValue(guest);
-      if(this.guest.food.length > 1){
+      if (this.guest.food.length > 1) {
         this.otherFood = this.guest.food;
-        this.guestForm.get('food').setValue("3");
-      }
-      if(this.guest.alcohole.length > 1){
-        this.otherAlco = this.guest.alcohole;
-        this.guestForm.get('alcohole').setValue("7");
+        this.guestForm.get('food').setValue(Food.Other);
       }
       this.api.getGuests().subscribe((guests) => {
         this.guests = guests;
@@ -63,7 +77,7 @@ export class GuestFormComponent implements OnInit {
     this.guestForm = this.fb.group({
       transfer: [null],
       food: [null],
-      alcohole: [null],
+      alcohole: new FormArray([]),
       hasChild: [null],
       hasNeighbour: [null],
       children: new FormArray([]),
@@ -97,7 +111,7 @@ export class GuestFormComponent implements OnInit {
     const formControl = <FormArray>this.guestForm.get('neighbours');
     formControl.push(
       this.fb.group({
-        isChecked: [this.guest.neighbours.find(item => item.neighbourId == neighbourId)],
+        isChecked: [this.guest.neighbours.find((item) => item.neighbourId == neighbourId)],
         neighbourId: [neighbourId, Validators.required],
         guestId: [this.guest.id, Validators.required],
       })
@@ -113,33 +127,35 @@ export class GuestFormComponent implements OnInit {
       }
       return;
     }
-    else{
-      const form = this.guestForm.getRawValue();
-      const filterCheck = form.neighbours.filter((item) => item.isChecked);
-      filterCheck.forEach((el) => {
-        delete el.isChecked;
-      });
-      form.neighbours = filterCheck;
-      if (form.food == this.foodEnum.Other) {
-        form.food = this.otherFood;
-      }
-      if (form.alcohole == this.alcoEnum.Other) {
-        form.alcohole = this.otherAlco;
-      }
-      form.children.forEach((el) => {
-        el.guestId = this.guest.id;
-      });
-      if (!form.hasChild) {
-        delete form.children;
-      };
-      if (!form.hasNeighbour) {
-        delete form.neighbours;
-      };
-      delete form.hasChild;
-      delete form.hasNeighbour;
-      this.api.SaveAnswer(form).subscribe(() => {
-        this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' });
-      });
+    const form = this.guestForm.getRawValue();
+    const filterCheck = form.neighbours.filter((item) => item.isChecked);
+    filterCheck.forEach((el) => {
+      delete el.isChecked;
+    });
+    form.neighbours = filterCheck;
+    if (form.food == this.foodEnum.Other) {
+      form.food = this.otherFood;
     }
+    form.alcohole = form.alcohole.filter(alc => alc.checked).map(alc => {
+      if (alc.value == this.alcoEnum.Other) {
+        return {value: this.otherAlco};
+      }
+      return {value: alc.value};
+    })
+    
+    form.children.forEach((el) => {
+      el.guestId = this.guest.id;
+    });
+    if (!form.hasChild) {
+      delete form.children;
+    }
+    if (!form.hasNeighbour) {
+      delete form.neighbours;
+    }
+    delete form.hasChild;
+    delete form.hasNeighbour;
+    this.api.SaveAnswer(form).subscribe(() => {
+      this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' });
+    });
   }
 }

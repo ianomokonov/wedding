@@ -27,6 +27,7 @@
                 $guest->transfer = $guest->transfer == '1';
                 $guest->approved = $guest->approved == '1';
                 $guest->hasNeighbour = count($guest->neighbours) > 0;
+                $guest->alcohole = $this->GetGuestAlcohole($guest->id);
                 
                 return $guest;
             }
@@ -52,6 +53,7 @@
                 $guest->hasChild = $guest->hasChild == '1';
                 $guest->transfer = $guest->transfer == '1';
                 $guest->approved = $guest->approved == '1';
+                $guest->alcohole = $this->GetGuestAlcohole($guest->id);
                 $guests[] = $guest;
             }
             
@@ -75,6 +77,11 @@
             foreach ($answer->neighbours as $neighbour){
                 $neighbour->guestId = $guestId;
                 $this->AddGuestNeighbour($neighbour);
+            }
+            $this->RemoveGuestAlcohole($guestId);
+            foreach ($answer->alcohole as $alcohole){
+                $alcohole->guestId = $guestId;
+                $this->AddGuestAlcohole($alcohole);
             }
 
             return $this->GetGuestInfo($guestId);
@@ -205,6 +212,22 @@
             }
             return array();
         } 
+        
+        private function GetGuestAlcohole($guestId = null)
+        {
+            if($guestId != null){
+                $query = $this->database->db->prepare("SELECT * FROM alcohole WHERE guestId = ?");
+                $query->execute(array($guestId));
+                $query->setFetchMode(PDO::FETCH_CLASS, 'Child');
+                $drinks = [];
+                while ($drink = $query->fetch()){
+                    $drinks[] = $drink->value;
+                }
+                
+                return $drinks;
+            }
+            return array();
+        } 
 
         private function GetGuestNeighbours($guestId = null)
         {
@@ -229,6 +252,15 @@
         private function AddGuestNeighbour($neighbour)
         {
             $insert = $this->database->genInsertQuery((array)$neighbour, 'neighbour');
+            $query = $this->database->db->prepare($insert[0]);
+            if($insert[1][0]!=null){
+                $query->execute($insert[1]);
+            }
+        }
+        
+        private function AddGuestAlcohole($alcohole)
+        {
+            $insert = $this->database->genInsertQuery((array)$alcohole, 'alcohole');
             $query = $this->database->db->prepare($insert[0]);
             if($insert[1][0]!=null){
                 $query->execute($insert[1]);
@@ -268,6 +300,12 @@
 
         private function RemoveGuestChildren($guestId){
             $query = "DELETE FROM child WHERE guestId = ?";
+            $stmt = $this->database->db->prepare( $query );
+            $stmt->execute(array($guestId));
+        }
+        
+        private function RemoveGuestAlcohole($guestId){
+            $query = "DELETE FROM alcohole WHERE guestId = ?";
             $stmt = $this->database->db->prepare( $query );
             $stmt->execute(array($guestId));
         }

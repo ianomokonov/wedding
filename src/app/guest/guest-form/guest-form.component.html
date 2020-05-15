@@ -33,15 +33,13 @@
       </div>
       <div class="form-group">
         <label>Какой алкоголь Вы предпочитаете?</label>
-        <div class="form-check" *ngFor="let option of alcoholeOptions">
-          <input class="form-check-input" type="radio" [id]="'alco'+option.value" formControlName="alcohole"
-            [value]="option.type" />
-          <label class="form-check-label" [for]="'alco'+option.value">
-            {{option.value}}
+        <div class="form-check" *ngFor="let option of alcohole.controls">
+          <input class="form-check-input" type="checkbox" [id]="'alco'+option.get('value').value" [formControl]="option.get('checked')"
+             />
+          <label class="form-check-label" [for]="'alco'+option.get('value').value">
+            {{option.get('name').value}}
           </label>
-        </div>
-        <div class="form-check">
-          <input *ngIf="guestForm.get('alcohole').value === alcoEnum.Other" [(ngModel)]="otherAlco"
+          <input *ngIf="option.get('value').value == alcoEnum.Other && option.get('checked').value" [(ngModel)]="otherAlco"
           [ngModelOptions]="{standalone: true}" type="text" class="form-control my-3" placeholder="Введите текст" />
         </div>
       </div>
@@ -99,7 +97,7 @@
               <div class="form-check" ngbDropdownItem
                 *ngFor="let neighbour of guests, let i=index"
                 [formGroupName]="i">
-                <input class="form-check-input" type="checkbox"
+                <input class="form-check-input list" type="checkbox"
                   formControlName="isChecked"
                   [id]="'neighbour'+neighbour.id"
                 />

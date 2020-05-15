@@ -28,6 +28,13 @@ CREATE TABLE IF NOT EXISTS child(
     FOREIGN KEY (guestId) REFERENCES guest(id)
 );
 
+CREATE TABLE IF NOT EXISTS alcohole(
+    id int(10) PRIMARY KEY AUTO_INCREMENT,
+    guestId int(10),
+    value varchar(255),
+    FOREIGN KEY (guestId) REFERENCES guest(id)
+);
+
 CREATE TABLE IF NOT EXISTS neighbour(
     id int PRIMARY KEY AUTO_INCREMENT,
     guestId int(10),

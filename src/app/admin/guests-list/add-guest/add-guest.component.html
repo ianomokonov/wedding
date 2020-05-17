@@ -30,7 +30,7 @@
       class="form-control"
       id="secondName"
       placeholder="(при наличии)"
-      formControlName="secondname"
+      formControlName="secondName"
     />
   </div>
   <ng-container *ngIf="guest">
@@ -42,7 +42,7 @@
           type="radio"
           formControlName="transfer"
           id="transferT"
-          value="true"
+          [value]="true"
         />
         <label class="form-check-label" for="transferT">
           Да
@@ -54,30 +54,12 @@
           type="radio"
           formControlName="transfer"
           id="transferF"
-          value="false"
+          [value]="false"
         />
         <label class="form-check-label" for="transferF">
           Нет
         </label>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="alcohole">Алкоголь</label>
-      <input
-        type="text"
-        class="form-control"
-        id="alcohole"
-        formControlName="alcohole"
-      />
-    </div>
-    <div class="form-group">
-      <label for="food">Еда</label>
-      <input
-        type="text"
-        class="form-control"
-        id="food"
-        formControlName="food"
-      />
     </div>
     <div class="form-group">
       <label for="approved">Приглашение подтверждено:</label>

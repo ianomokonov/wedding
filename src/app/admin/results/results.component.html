@@ -12,18 +12,30 @@
   </thead>
   <tbody>
     <tr *ngFor="let guest of guestsList">
-      <th scope="row">{{guest.surname}} {{guest.name}} {{guest.secondName}}</th>
-      <td>{{guest.transfer}}</td>
-      <td>{{getAlcohole(guest.alcohole)}}</td>
-      <td>{{getFood(guest.food)}}</td>
+      <th scope="row">{{ guest.surname }} {{ guest.name }} {{ guest.secondName }}</th>
+      <td>{{ guest.transfer ? 'Да' : 'Нет' }}</td>
+      <td>
+        <tr *ngFor="let alco of guest.alcohole">
+          {{ getAlcohole(alco) }}
+        </tr>
+      </td>
+      <td>{{ getFood(guest.food) }}</td>
       <td>
         <tr *ngFor="let child of guest.children">
-            {{child.name}} ({{child.age}} лет)
+          {{
+            child.name
+          }}
+          ({{
+            child.age
+          }}
+          лет)
         </tr>
       </td>
       <td>
         <tr *ngFor="let neighbour of guest.neighbours">
-            {{neighbour.neighbourName}}
+          {{
+            neighbour.neighbourName
+          }}
         </tr>
       </td>
     </tr>

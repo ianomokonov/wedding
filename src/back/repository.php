@@ -155,9 +155,19 @@
 
             $guestId = $guest->id;
             unset($guest->id);
+            $alcohole = $guest->alcohole;
+            unset($guest->alcohole);
             $a = $this->database->genUpdateQuery(array_keys((array)$guest), array_values((array)$guest), "guest", $guestId);
             $query = $this->database->db->prepare($a[0]);
             $query->execute($a[1]);
+            if($alcohole){
+                $this->RemoveGuestAlcohole($guestId);
+                foreach ($alcohole as $alco){
+                    $alco->guestId = $guestId;
+                    $this->AddGuestAlcohole($alco);
+                } 
+            }
+            
             return array('message' => 'Гость обновлен');
         }
 

@@ -29,12 +29,8 @@ export class AddGuestComponent {
       id: [null],
       name: [null, [Validators.required]],
       surname: [null, [Validators.required]],
-      secondname: [null],
+      secondName: [null],
       transfer: [null],
-      alcohole: [null],
-      food: [null],
-      // children: [this.guest.children],
-      // neighbours: [this.guest.neighbours],
       approved: [null],
     });
   }

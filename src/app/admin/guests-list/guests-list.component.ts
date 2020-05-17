@@ -41,14 +41,24 @@ export class GuestsListComponent implements OnInit {
   }
 
   public linkGenerate(guest: Guest) {
+    if(this.linkForm.invalid){
+      return;
+    }
     const link = {
       guestId: guest.id,
       header: this.linkForm.getRawValue().header,
     };
     this.api.GenerateLink(link).subscribe((link) => {
       guest.link = link;
+      guest['genLink'] = false;
+      this.linkForm.reset();
     });
-    this.genLink = false;
+  }
+
+  public removeLink(guest: Guest){
+    this.api.RemoveFromLink({guestId: guest.id, linkId: guest.linkId}).subscribe(() => {
+      this.ngOnInit();
+    })
   }
 }
 

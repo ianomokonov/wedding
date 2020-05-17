@@ -5,23 +5,16 @@
 <ngb-accordion #acc="ngbAccordion">
   <ngb-panel
     *ngFor="let guest of guestsList"
-    title="#{{ guest.id }}: {{ guest.surname }} {{ guest.name }}"
+    title="#{{ guest.id }}: {{ guest.surname }} {{ guest.name }} {{ guest.secondName }}"
   >
     <ng-template ngbPanelContent>
-      <div>Фамилия: {{ guest.surname }}</div>
-      <div>Имя: {{ guest.name }}</div>
-      <div *ngIf="guest.secondName">Отчество: {{ guest.secondName }}</div>
-      <div *ngIf="guest.transfer">Нужен трансфер: {{ guest.transfer }}</div>
-      <div *ngIf="guest.link">
+      <div class="mb-3" *ngIf="guest.link">
         Уникальная ссылка гостя:
         <a href="{{guest.link.url}}">{{ guest.link.url }}</a>
+        <i class="fas fa-times ml-3" (click)="removeLink(guest)"></i>
       </div>
-      <div *ngIf="guest.alcohole">
-        Предпочтения по алкоголю: {{ guest.alcohole }}
-      </div>
-      <div *ngIf="guest.food">Предпочтения по еде: {{ guest.food }}</div>
-      <div *ngIf="guest.approved">
-        Приглашение принято: {{ guest.approved }}
+      <div class="text-success py-3" *ngIf="guest.approved">
+        Приглашение принято
       </div>
       <button
         type="button"
@@ -30,26 +23,26 @@
       >
         Редактировать
       </button>
-      <div class="d-flex justify-content-center align-items-center py-3">
+      <div class="py-3">
         <button
         type="button"
         class="btn btn-primary"
-        (click)="genLink = true"
-        *ngIf="!genLink && !guest.link"
+        (click)="guest['genLink'] = true"
+        *ngIf="!guest['genLink'] && !guest.link"
         >
           Сгенерировать ссылку
         </button>
-        <div *ngIf="genLink">
+        <div *ngIf="guest['genLink']">
           <form
-          class="addForm p-3"
+          class="addForm"
           [formGroup]="linkForm"
           (submit)="linkGenerate(guest)">
             <div class="form-group">
-              <label for="header">Приветствие</label>
+              <label [for]="'header'+guest.id">Приветствие</label>
               <input
                 type="text"
                 class="form-control"
-                id="header"
+                [id]="'header'+guest.id"
                 formControlName="header"
               />
             </div>

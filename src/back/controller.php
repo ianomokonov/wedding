@@ -79,6 +79,11 @@ if(isset($_GET['key'])){
                 $data = json_decode(file_get_contents("php://input"));
                 echo json_encode($repository->CreateGuest($data));
                 return;
+            case 'update-positions':
+                // http_response_code(200);
+                $data = json_decode(file_get_contents("php://input"));
+                echo json_encode($repository->UpdatePositions($data));
+                return;
             case 'update-guest':
                 // http_response_code(200);
                 $data = json_decode(file_get_contents("php://input"));

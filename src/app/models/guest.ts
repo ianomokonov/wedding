@@ -12,6 +12,7 @@ export interface Guest{
     alcohole?: string[];
     food?: string;
     approved?: boolean;
+    position?:number;
 
     link?: Link;
     children?: Child[];

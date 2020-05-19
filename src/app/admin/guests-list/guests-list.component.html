@@ -1,60 +1,51 @@
 <div class="d-flex justify-content-between align-items-center py-3">
   <h2 class="m-0">Список гостей</h2>
-  <button class="btn btn-primary fas fa-plus" (click)="addGuest()"></button>
+  <div>
+    <button class="btn btn-success fas fa-plus" (click)="addGuest()"></button>
+    <button
+      class="btn btn-outline-primary fas fa-edit ml-1"
+      [ngClass]="{ 'btn-outline-primary': !isEditting, 'btn-primary': isEditting }"
+      (click)="editList()"
+      title="Режим изменения порядка гостей"
+    ></button>
+  </div>
 </div>
-<ngb-accordion #acc="ngbAccordion">
-  <ngb-panel
-    *ngFor="let guest of guestsList"
-    title="#{{ guest.id }}: {{ guest.surname }} {{ guest.name }} {{ guest.secondName }}"
-  >
-    <ng-template ngbPanelContent>
-      <div class="mb-3" *ngIf="guest.link">
-        Уникальная ссылка гостя:
-        <a href="{{guest.link.url}}">{{ guest.link.url }}</a>
-        <i class="fas fa-times ml-3" (click)="removeLink(guest)"></i>
-      </div>
-      <div class="text-success py-3" *ngIf="guest.approved">
-        Приглашение принято
-      </div>
-      <button
-        type="button"
-        class="btn btn-primary"
-        (click)="editGuest(guest)"
-      >
-        Редактировать
-      </button>
-      <div class="py-3">
-        <button
-        type="button"
-        class="btn btn-primary"
-        (click)="guest['genLink'] = true"
-        *ngIf="!guest['genLink'] && !guest.link"
-        >
-          Сгенерировать ссылку
-        </button>
-        <div *ngIf="guest['genLink']">
-          <form
-          class="addForm"
-          [formGroup]="linkForm"
-          (submit)="linkGenerate(guest)">
-            <div class="form-group">
-              <label [for]="'header'+guest.id">Приветствие</label>
-              <input
-                type="text"
-                class="form-control"
-                [id]="'header'+guest.id"
-                formControlName="header"
-              />
-            </div>
-            <button
-            type="submit"
-            class="btn btn-primary"
-            >
-              Сгенерировать
-            </button>
-          </form>
+<div class="list" #list>
+  <ngb-accordion #acc="ngbAccordion">
+    <ngb-panel
+      [disabled]="isEditting"
+      *ngFor="let guest of guestsList"
+      title="#{{ +guest.position + 1 }}: {{ guest.surname }} {{ guest.name }} {{ guest.secondName }}"
+    >
+      <ng-template ngbPanelContent>
+        <div class="mb-3" *ngIf="guest.link">
+          Уникальная ссылка гостя:
+          <a href="{{ guest.link.url }}">{{ guest.link.url }}</a>
+          <i class="fas fa-times ml-3" (click)="removeLink(guest)"></i>
         </div>
-      </div>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+        <div class="text-success py-3" *ngIf="guest.approved">
+          Приглашение принято
+        </div>
+        <button type="button" class="btn btn-primary" (click)="editGuest(guest)">
+          Редактировать
+        </button>
+        <div class="py-3">
+          <button type="button" class="btn btn-primary" (click)="guest['genLink'] = true" *ngIf="!guest['genLink'] && !guest.link">
+            Сгенерировать ссылку
+          </button>
+          <div *ngIf="guest['genLink']">
+            <form class="addForm" [formGroup]="linkForm" (submit)="linkGenerate(guest)">
+              <div class="form-group">
+                <label [for]="'header' + guest.id">Приветствие</label>
+                <input type="text" class="form-control" [id]="'header' + guest.id" formControlName="header" />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Сгенерировать
+              </button>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

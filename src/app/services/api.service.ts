@@ -69,6 +69,11 @@ export class ApiService{
         return this.http.post<Message>(`${this.baseUrl}key=update-guest`, guest);
     }
 
+    /** обновить порядок гостей */
+    public UpdatePositions(guests: Guest[]): Observable<Message>{
+        return this.http.post<Message>(`${this.baseUrl}key=update-positions`, guests);
+    }
+
     /** Создание ссылки гостя */
     public GenerateLink(link: GenerateLinkRequest): Observable<Link>{
         return this.http.post<Link>(`${this.baseUrl}key=generate-link`, link);

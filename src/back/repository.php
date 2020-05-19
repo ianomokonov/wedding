@@ -39,9 +39,9 @@
 
         public function GetGuests($guestId){
             if($guestId == null){
-                $query = $this->database->db->query("SELECT * FROM guest");
+                $query = $this->database->db->query("SELECT * FROM guest ORDER BY position");
             } else {
-                $query = $this->database->db->query("SELECT * FROM guest WHERE id != $guestId");
+                $query = $this->database->db->query("SELECT * FROM guest WHERE id != $guestId ORDER BY position");
             }
             
             $query->setFetchMode(PDO::FETCH_CLASS, 'Guest');
@@ -87,6 +87,18 @@
 
             return $this->GetGuestInfo($guestId);
             
+        }
+        
+        public function UpdatePositions($guests){
+            if($guests == null){
+                return $guests;
+            }
+            
+            for($i = 0; $i<count($guests); $i++){
+                $this->UpdateGuest((object) array('id' => $guests[$i]->id, 'position' => $i));
+            }
+            
+            return array('message' => 'Список обновлен');
         }
 
         public function ApproveComming($userId, $approved){

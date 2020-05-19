@@ -56,20 +56,20 @@
           <label class="form-check-label" for="ChildT">
             Да
           </label>
-          <div class="form-group-container d-flex" formArrayName="children" *ngIf="guestForm.get('hasChild').value">
-            <div class="addButton">
-              <button class="btn btn-primary fas fa-plus" *ngIf="guestForm.get('children').valid"
-              (click)="addChild()"
-              style="height: 38px;"></button>
-            </div>
-            <div class="age">
-              <div [formGroupName]="i" class="form-group d-flex"
-              *ngFor="let control of getFormControls('children'); let i = index">
-              <input formControlName="name" placeholder="Введите имя" class="form-control mr-1" type="text">
-              <input formControlName="age" placeholder="Укажите возраст" class="form-control ml-1" type="text">
-              <button class="btn btn-primary fas fa-minus mx-2" (click)="removeControl(i, 'children')"></button>
-            </div>
-            </div>
+        </div>
+        <div class="form-group-container d-flex" formArrayName="children" *ngIf="guestForm.get('hasChild').value">
+          <div class="addButton">
+            <button class="btn btn-primary fas fa-plus" *ngIf="guestForm.get('children').valid"
+            (click)="addChild()"
+            style="height: 38px;"></button>
+          </div>
+          <div class="age">
+            <div [formGroupName]="i" class="form-group d-flex"
+            *ngFor="let control of getFormControls('children'); let i = index">
+            <input formControlName="name" placeholder="Введите имя" class="form-control mr-1" type="text">
+            <input formControlName="age" placeholder="Укажите возраст" class="form-control ml-1" type="text">
+            <button class="btn btn-primary fas fa-minus mx-2" (click)="removeControl(i, 'children')"></button>
+          </div>
           </div>
         </div>
       </div>
@@ -87,22 +87,22 @@
             Да
           </label>
         </div>
-        <div class="form-check"
+        <div
           *ngIf="guestForm.get('hasNeighbour').value"
           formArrayName="neighbours">
           <div ngbDropdown autoClose = "outside">
             <button type="button" class="btn btn-light" id="dropdownConfig" ngbDropdownToggle>Выберите из списка</button>
-            <div ngbDropdownMenu
+            <div class="pl-0 " ngbDropdownMenu
               aria-labelledby="dropdownConfig">
-              <div class="form-check" ngbDropdownItem
+              <div class="form-check neighbour-item" ngbDropdownItem
                 *ngFor="let neighbour of guests, let i=index"
                 [formGroupName]="i">
-                <input class="form-check-input list" type="checkbox"
+                <input class="form-check-input" type="checkbox"
                   formControlName="isChecked"
                   [id]="'neighbour'+neighbour.id"
                 />
                 <label class="form-check-label" [for]="'neighbour'+neighbour.id">
-                  {{neighbour.surname}} {{neighbour.name}}
+                  {{neighbour.surname}} {{neighbour.name}} {{neighbour.secondName}}
                 </label>
               </div>
             </div>

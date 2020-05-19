@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Guest } from 'src/app/models/guest';
 import { GratitudeModalComponent } from '../gratitude-modal/gratitude-modal.component';
 import { Alcohole } from 'src/app/models/alcohole';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'guest-form',
@@ -32,7 +33,7 @@ export class GuestFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.api.getGuestInfo().subscribe((guest) => {
+    forkJoin(this.api.getGuestInfo(), this.api.getGuests()).subscribe(([guest, guests]) => {
       this.guest = guest;
       const formControl = <FormArray>this.guestForm.get('children');
       this.guest.children.forEach((child) => {
@@ -60,17 +61,15 @@ export class GuestFormComponent implements OnInit {
         );
       });
       this.guestForm.patchValue(guest);
-      if (this.guest.food.length > 1) {
+      if (this.guest.food && this.guest.food.length > 1) {
         this.otherFood = this.guest.food;
         this.guestForm.get('food').setValue(Food.Other);
       }
-      this.api.getGuests().subscribe((guests) => {
-        this.guests = guests;
-        this.guests.forEach((guest) => {
-          this.addNeighbours(guest.id);
-        });
+      this.guests = guests;
+      this.guests.forEach((guest) => {
+        this.addNeighbours(guest.id);
       });
-    });
+    })
   }
 
   initForm(): void {
@@ -152,8 +151,6 @@ export class GuestFormComponent implements OnInit {
     if (!form.hasNeighbour) {
       delete form.neighbours;
     }
-    delete form.hasChild;
-    delete form.hasNeighbour;
     this.api.SaveAnswer(form).subscribe(() => {
       this.modalService.open(GratitudeModalComponent, { centered: true, size: 'lg' });
     });

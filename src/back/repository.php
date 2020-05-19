@@ -23,7 +23,7 @@
                 $guest->link = $this->GetGuestLink($guest->linkId);
                 $guest->children = $this->GetGuestChildren($guest->id);
                 $guest->neighbours = $this->GetGuestNeighbours($guest->id);
-                $guest->hasChild = $guest->hasChild == '1';
+                $guest->hasChild = count($guest->children) > 0;
                 $guest->transfer = $guest->transfer == '1';
                 $guest->approved = $guest->approved == '1';
                 $guest->hasNeighbour = count($guest->neighbours) > 0;
@@ -50,7 +50,7 @@
                 $guest->link = $this->GetGuestLink($guest->linkId);
                 $guest->children = $this->GetGuestChildren($guest->id);
                 $guest->neighbours = $this->GetGuestNeighbours($guest->id);
-                $guest->hasChild = $guest->hasChild == '1';
+                $guest->hasChild = count($guest->children) > 0;
                 $guest->transfer = $guest->transfer == '1';
                 $guest->approved = $guest->approved == '1';
                 $guest->alcohole = $this->GetGuestAlcohole($guest->id);
@@ -66,8 +66,9 @@
                 //http_response_code(403);
                 return array("message" => "Id гостя не может быть пустым", "method" => "SaveAnswer", "requestData" => $answer);
             }
-            $query = $this->database->db->prepare("UPDATE guest SET transfer = ?, food = ?, alcohole = ?, hasChild = ? WHERE id = ?");
-            $query->execute(array($answer->transfer, $answer->food, $answer->alcohole, $answer->hasChild, $guestId));
+            $query = $this->database->db->prepare("UPDATE guest SET transfer = ?, food = ? WHERE id = ?");
+            $query->execute(array($answer->transfer, $answer->food, $guestId));
+            
             $this->RemoveGuestChildren($guestId);
             foreach ($answer->children as $child){
                 $child->guestId = $guestId;

@@ -2,7 +2,7 @@
   <form class="guestForm p-3 h-100" [formGroup]="guestForm" (submit)="saveAnswer()">
     <label class="py-4">Пожалуйста, ответьте на вопросы, которые мы для вас подготовили:</label>
     <div class="form-block">
-      <div class="form-group">
+      <div class="form-group pb-3 pb-sm-0">
         <label>Потребуется ли Вам трансфер?</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" formControlName="transfer" id="transferF" [value]="false" />
@@ -17,7 +17,7 @@
           </label>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group pb-3 pb-sm-0">
         <label>Есть ли у Вас особые предпочтения по еде?</label>
         <div class="form-check" *ngFor="let option of foodOptions">
           <input class="form-check-input" type="radio" [id]="'food' + option.value" formControlName="food" [value]="option.type" />
@@ -25,7 +25,7 @@
             {{ option.value }}
           </label>
         </div>
-        <div class="form-check">
+        <div class="form-check pb-3 pb-sm-0">
           <input
             *ngIf="guestForm.get('food').value === foodEnum.Other"
             [(ngModel)]="otherFood"
@@ -36,7 +36,7 @@
           />
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group pb-3 pb-sm-0">
         <label>Какой алкоголь Вы предпочитаете?</label>
         <div *ngFor="let option of alcohole.controls">
           <div class="form-check">
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group pb-3 pb-sm-0">
         <label>Будет ли с Вами на празднике ребенок?</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" id="ChildF" formControlName="hasChild" [value]="false" />
@@ -76,8 +76,8 @@
             Да
           </label>
         </div>
-        <div class="form-group-container d-flex" formArrayName="children" *ngIf="guestForm.get('hasChild').value">
-          <div class="addButton">
+        <div class="form-group-container row" formArrayName="children" *ngIf="guestForm.get('hasChild').value">
+          <div class="addButton col-sm-1">
             <button
               class="btn btn-primary fas fa-plus"
               *ngIf="guestForm.get('children').valid"
@@ -85,16 +85,19 @@
               style="height: 38px;"
             ></button>
           </div>
-          <div class="age">
-            <div [formGroupName]="i" class="form-group d-flex" *ngFor="let control of getFormControls('children'); let i = index">
-              <input formControlName="name" placeholder="Введите имя" class="form-control mr-1" type="text" />
-              <input formControlName="age" placeholder="Укажите возраст" class="form-control ml-1" type="text" />
-              <button class="btn btn-primary fas fa-minus mx-2" (click)="removeControl(i, 'children')"></button>
+          <div class="age col-sm">
+            <div [formGroupName]="i" class="form-group row" *ngFor="let control of getFormControls('children'); let i = index">
+              <div class="col-sm-6"><input formControlName="name" placeholder="Введите имя" class="form-control mb-1" type="text" /></div>
+              <div class="col-sm-4"><input formControlName="age" placeholder="Укажите возраст" class="form-control mb-1" type="number" /></div>
+              <div class="col-sm-2"><button class="btn btn-primary fas fa-minus mb-1" (click)="removeControl(i, 'children')"></button></div>
+              
+              
+              
             </div>
           </div>
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group pb-3 pb-sm-0">
         <label>Хотели бы вы сидеть с кем-то конкретным?</label>
         <div class="form-check">
           <input class="form-check-input" type="radio" id="NeiF" formControlName="hasNeighbour" [value]="false" />
@@ -122,7 +125,7 @@
           </div>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center py-4">
         <button class="btn btn-primary" type="submit">Отправить</button>
       </div>
     </div>

@@ -1,49 +1,64 @@
+<!-- <div class="delimiter">
+  <img src="../../assets/pink_flowers.png" alt="" />
+</div> -->
+
 <div class="item header">
-    <img src="../../assets/blue_flowers.png" alt="">
-    <img src="../../assets/blue_flowers.png" alt="">
-    <img src="../../assets/pink_flowers.png" alt="">
-    <img src="../../assets/pink_flowers.png" alt="">
-    <div class="content">
-        <h2>Приглашение на свадьбу</h2>
-        <div class="center-content">
-            <h1>25</h1>
-            <div class="rounded-circle">
-                <h1>Ивана</h1>
-                <h1>и</h1>
-                <h1>Марии</h1>
-            </div>
-            <h1>07</h1>
-        </div>
-        <h1>2020</h1>
+  <img src="../../assets/blue_flowers.png" alt="" />
+  <img src="../../assets/blue_flowers.png" alt="" />
+  <img src="../../assets/pink_flowers.png" alt="" />
+  <img src="../../assets/pink_flowers.png" alt="" />
+  <div class="content">
+    <h2>Приглашение на свадьбу</h2>
+    <div class="center-content">
+      <h1>25</h1>
+      <div class="rounded-circle">
+        <h1>Ивана</h1>
+        <h1>и</h1>
+        <h1>Марии</h1>
+      </div>
+      <h1>07</h1>
     </div>
-    <div class="go-to-approve" (click)="goToApprove()"></div>
-    <img class="down-arrow" src="../../assets/down-arrow.png" (click)="goToApprove()">
+    <h1>2020</h1>
+  </div>
+  <div class="go-to-approve" (click)="goToApprove()"></div>
+  <img class="down-arrow" src="../../assets/down-arrow.png" (click)="goToApprove()" />
+</div>
+<div class="item small-header">
+  <div class="content">
+    <div class="center-content">
+      <div class="rounded-circle">
+        <h1>Ивана</h1>
+        <h1>и</h1>
+        <h1>Марии</h1>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="item approve">
-    <div class="content">
-        <div class="bg-white rounded p-3">
-            <h1>{{guest?.link.header}}</h1>
-            <p>Решив однажды и навечно
-                <br>Свои пути соединить,
-                <br>Мы приглашаем Вас на вечер,
-                <br>Чтоб нашу радость разделить,
-                <br>Сказать напутственное слово,
-                <br>Воскликнуть "Горько"! И не раз!
-                <br>Мы беспредельно будем рады
-                <br>На нашей свадьбе видеть Вас!
-            </p>
-            <p>
-                Празднование этого замечательного события состоится в ресторане “Всё своё”.
-                <br>По адресу: <b>Москва, поселение
-                    Марушкинское, посёлок совхоза Крёкшино, Озёрная улица, 2.</b>
-                <br>Которое начнется в <b>16:00</b>
-            </p>
-            <h1><b>25/07/2020</b></h1>
-            <button class="btn" [ngClass]="{'approved' : guest?.approved}" (click)="onApproveClick()">
-                {{ guest?.approved ? 'Отменить подтверждение' : 'Подтвердить присутствие' }}
-            </button>
-        </div>
+  <div class="content">
+    <div class="bg-white rounded p-3 py-5">
+      <h1>{{ guest?.link.header }}</h1>
+      <p>
+        Решив однажды и навечно <br />Свои пути соединить, <br />Мы приглашаем Вас на вечер, <br />Чтоб нашу радость разделить,
+        <br />Сказать напутственное слово, <br />Воскликнуть "Горько"! И не раз! <br />Мы беспредельно будем рады <br />На нашей свадьбе
+        видеть Вас!
+      </p>
+      <p>
+        Празднование этого замечательного события состоится в ресторане “Всё своё”.
+        <br />По адресу: <b>Москва, поселение Марушкинское, посёлок совхоза Крёкшино, Озёрная улица, 2.</b> <br />Которое начнется в
+        <b>16:00</b>
+      </p>
+      <h1><b>25/07/2020</b></h1>
+      <button class="btn" [ngClass]="{ approved: guest?.approved }" (click)="onApproveClick()">
+        {{ guest?.approved ? 'Отменить подтверждение' : 'Подтвердить присутствие' }}
+      </button>
     </div>
+  </div>
 </div>
 <guest-form></guest-form>
-<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A060c22cb1483dc9ec1ce8c1c20eaa6a0543544d5a4cd25279e76c956d7199f57&amp;source=constructor" width="100%" height="520" frameborder="0"></iframe>
+<iframe
+  src="https://yandex.ru/map-widget/v1/?um=constructor%3A060c22cb1483dc9ec1ce8c1c20eaa6a0543544d5a4cd25279e76c956d7199f57&amp;source=constructor"
+  width="100%"
+  height="520"
+  frameborder="0"
+></iframe>

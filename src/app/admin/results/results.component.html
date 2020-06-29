@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let guest of guestsList">
-      <th scope="row">{{ guest.surname }} {{ guest.name }} {{ guest.secondName }}</th>
+      <th scope="row">{{ guest.surname }} {{ guest.name }} {{ guest.secondName }}<i *ngIf="guest.approved" class="fas fa-check-circle ml-2 text-success"></i></th>
       <td>{{ guest.transfer ? 'Да' : 'Нет' }}</td>
       <td>
         <tr *ngFor="let alco of guest.alcohole">
